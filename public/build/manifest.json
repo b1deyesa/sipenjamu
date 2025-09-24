@@ -1,0 +1,10 @@
+{
+  "resources/sass/app.scss": {
+    "file": "assets/app-BHQnzpTu.css",
+    "src": "resources/sass/app.scss",
+    "isEntry": true,
+    "names": [
+      "app.css"
+    ]
+  }
+}
