@@ -32,7 +32,7 @@ class MonevTable extends Model
         return $this->hasMany(MonevRow::class, 'monev_table_id');
     }
     
-    public function fields()
+    public function fieldsTable()
     {
         return $this->hasMany(MonevField::class, 'monev_table_id');
     }

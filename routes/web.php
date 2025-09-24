@@ -50,7 +50,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers\Dashboard')->prefix('
     // MONEV
     Route::middleware(['role:admin,auditor'])->namespace('Monev')->prefix('monev/{upps}')->name('monev.')->group(function() {
         Route::get('/', 'IndexController@index')->name('index');
-        Route::get('/{slug}', 'IndexController@show')->name('show');
+        Route::get('/{slug}/test', 'IndexController@show')->name('show');
     });
     
     // AMI

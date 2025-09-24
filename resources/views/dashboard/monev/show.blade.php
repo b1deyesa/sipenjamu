@@ -12,7 +12,7 @@
     
         {{-- Two Section Content --}}
         <div class="two-section__content">
-            @livewire('dashboard.monev.update', ['slug' => $monev->slug, 'upps' => $upps])
+            @livewire('dashboard.monev.read', ['slug' => $monev->slug, 'upps' => $upps])
         </div>
         
     </div>
