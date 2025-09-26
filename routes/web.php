@@ -51,6 +51,8 @@ Route::middleware('auth')->namespace('App\Http\Controllers\Dashboard')->prefix('
     Route::middleware(['role:admin,auditor'])->namespace('Monev')->prefix('monev/{upps}')->name('monev.')->group(function() {
         Route::get('/', 'IndexController@index')->name('index');
         Route::get('/{slug}/test', 'IndexController@show')->name('show');
+        Route::get('/{slug}/export', 'IndexController@export')->name('export');
+        Route::post('/{slug}/import', 'IndexController@import')->name('import');
     });
     
     // AMI
@@ -89,6 +91,12 @@ Route::middleware('auth')->namespace('App\Http\Controllers\Dashboard')->prefix('
             Route::get('/evaluasi', 'SpmiController@evaluasi')->name('evaluasi');
             Route::get('/peningkatan', 'SpmiController@peningkatan')->name('peningkatan');
             Route::get('/pengendalian', 'SpmiController@pengendalian')->name('pengendalian');
+        });
+        
+        // Monev
+        Route::prefix('monev')->name('monev.')->group(function() {
+            Route::get('/buku', 'MonevController@buku')->name('buku');
+            Route::get('/buku/{id}/export-template', 'MonevController@exportBukuTemplate')->name('buku.export');
         });
     });
 });

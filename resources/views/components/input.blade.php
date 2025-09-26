@@ -1,4 +1,4 @@
-<div class="input" {{ $attributes }}>
+<div class="input" {{ $attributes }} style="width: {{ $width }}">
     
     {{-- Label --}}
     @if($label)<span class="input__label">{{ $label }}</span>@endif

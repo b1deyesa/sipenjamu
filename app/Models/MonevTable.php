@@ -14,25 +14,14 @@ class MonevTable extends Model
     protected $fillable = [
         'name',
         'slug',
-        'fields',
     ];
 
-    /**
-     * Cast JSON ke array otomatis
-     */
-    protected $casts = [
-        'fields' => 'array',
-    ];
-
-    /**
-     * Relasi: satu tabel Monev punya banyak row
-     */
     public function rows()
     {
         return $this->hasMany(MonevRow::class, 'monev_table_id');
     }
     
-    public function fieldsTable()
+    public function fields()
     {
         return $this->hasMany(MonevField::class, 'monev_table_id');
     }

@@ -24,6 +24,11 @@
             <a x-show="open" class="menu__item {{ request()->routeIs('dashboard.admin.spmi.pengendalian') ? 'active' : '' }}" href="{{ route('dashboard.admin.spmi.pengendalian') }}"><i class="fa-solid fa-circle-notch"></i><span x-show="showLabels" x-transition>Pengendalian</span></a>
             <a x-show="open" class="menu__item {{ request()->routeIs('dashboard.admin.spmi.peningkatan') ? 'active' : '' }}" href="{{ route('dashboard.admin.spmi.peningkatan') }}"><i class="fa-solid fa-circle-notch"></i><span x-show="showLabels" x-transition>Peningkatan</span></a>
         </div>
+        <hr class="menu__separator">
+        <div class="menu__dropdown" x-data="{ open: {{ request()->routeIs('dashboard.admin.monev.*') ? 'true' : 'false' }} }">
+            <span class="dropdown__item {{ request()->routeIs('dashboard.admin.monev.*') ? 'active' : '' }}" x-on:click="open = !open"><i class="fa-solid fa-chart-line"></i><span x-show="showLabels" x-transition>MONEV</span></span>
+            <a x-show="open" class="menu__item {{ request()->routeIs('dashboard.admin.monev.buku') ? 'active' : '' }}" href="{{ route('dashboard.admin.monev.buku') }}"><i class="fa-solid fa-circle-notch"></i><span x-show="showLabels" x-transition>Buku IV</span></a>
+        </div>
     </div>
     
 </nav>

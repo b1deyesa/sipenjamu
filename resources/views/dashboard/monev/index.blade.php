@@ -13,7 +13,7 @@
                     <div class="item__text">
                         <h3 class="text__title">{{ $monev->name }}</h3>
                     </div>
-                    <a href="{{ route('dashboard.monev.show', ['upps' => $upps, 'slug' => $monev->slug]) }}">Open</a>
+                    <x-button type="link" href="{{ route('dashboard.monev.show', ['upps' => $upps, 'slug' => $monev->slug]) }}">Open</x-button>
                 </div>
             @endforeach
         </div>    

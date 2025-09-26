@@ -20,13 +20,13 @@ class DatabaseSeeder extends Seeder
             JenjangSeeder::class,
             ProgramStudiSeeder::class,
             ProfilSeeder::class,
-            MonevTableSeeder::class
+            // MonevTableSeeder::class
         ]);
         
         $user = User::factory()->create([
             'name' => 'Bideyesa',
-            'email' => 'bideyesa@gmail.com',
-            'password' => Hash::make('magox1905')
+            'email' => 'test@gmail.com',
+            'password' => Hash::make('123')
         ]);
         
         $user->roles()->sync([1,2]);

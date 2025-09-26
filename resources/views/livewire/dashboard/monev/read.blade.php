@@ -1,14 +1,11 @@
-<span x-data="searchableTable()" 
-      x-init="updateVisibleRows(); $watch('search', () => { setTimeout(() => updateVisibleRows(), 10); });">
-      
+<span x-data="searchableTable()" x-init="updateVisibleRows(); $watch('search', () => { setTimeout(() => updateVisibleRows(), 10); });">
     {{-- Features --}}
     <div class="content__feature">
-        @if('dashboard.monev.create')
-            @livewire('dashboard.monev.create', ['slug' => $slug, 'upps' => $upps])
-        @endif
+        @livewire('dashboard.monev.create', ['slug' => $slug, 'upps' => $upps])
+
         <x-input type="search" placeholder="Search here.." x-model="search" />
     </div>
-
+    
     {{-- Table --}}
     <x-table class="content__table">
         <x-slot:head>
@@ -20,52 +17,22 @@
 
         <x-slot:body>
             @foreach ($tables as $row)
-                @php
-                    // buat searchableText per-row
-                    $searchableText = strtolower(
-                        collect($searchField)
-                            ->map(function ($field) use ($row) {
-                                $value = data_get((array) $row, $field) ?? '';
-                                if (is_array($value)) {
-                                    $value = implode(' ', $value);
-                                } elseif (!is_string($value)) {
-                                    $value = (string) json_encode($value);
-                                }
-                                return $value;
-                            })
-                            ->join(' ')
-                    );
-                @endphp
-
-                <tr class="data-row" 
-                    x-show="search === '' || '{{ $searchableText }}'.includes(search.toLowerCase())">
-
+                <tr 
+                    class="data-row" 
+                    x-show="search === '' || '{{ strtolower($row->searchable_text) }}'.includes(search.toLowerCase())"
+                >
                     @foreach ($searchField as $label => $field)
-                        @php
-                            $value = data_get((array) $row, $field) ?? '';
-                            if (is_array($value)) {
-                                $value = implode(' ', $value);
-                            } elseif (!is_string($value)) {
-                                $value = (string) json_encode($value);
-                            }
-                        @endphp
-
-                        @if ($field == 'link')
-                            <td>{!! linkIcon($value) !!}</td>
+                        @if ($field === 'link')
+                            <td>{!! linkIcon($row->$field ?? '') !!}</td>
                         @else
-                            <td x-html="highlight('{{ addslashes($value) }}')"></td>
+                            <td x-html="highlight('{{ addslashes($row->$field ?? '') }}')"></td>
                         @endif
                     @endforeach
 
                     <td width="1%">
                         <div class="table__action">
-                            @if('dashboard.monev.update')
-                                @livewire('dashboard.monev.update', [
-                                    'row' => $row->id,
-                                    'slug' => $slug,
-                                    'upps' => $upps
-                                ], key('dashboard.monev.update' . $row->id))
-                            @endif
+                                @livewire('dashboard.monev.update', ['row' => $row->id,'slug' => $slug,'upps' => $upps], key('dashboard.monev.update' . $row->id))
+                                @livewire('dashboard.monev.delete', ['row' => $row->id,'slug' => $slug,'upps' => $upps], key('dashboard.monev.delete' . $row->id))
                         </div>
                     </td>
                 </tr>
@@ -78,7 +45,6 @@
             </tr>
         </x-slot:body>
     </x-table>
-    
 </span>
 
 @push('scripts')
@@ -89,29 +55,14 @@
             visibleRowsCount: 0,
             updateVisibleRows() {
                 const rows = this.$el.querySelectorAll('.data-row');
-                let count = 0;
-                rows.forEach(row => {
-                    if (window.getComputedStyle(row).display !== 'none') count++;
-                });
-                this.visibleRowsCount = count;
+                this.visibleRowsCount = Array.from(rows).filter(row =>
+                    window.getComputedStyle(row).display !== 'none'
+                ).length;
             },
             highlight(text) {
                 if (!this.search) return text;
-                const searchLower = this.search.toLowerCase();
-                const textLower = text.toLowerCase();
-                let result = '';
-                let i = 0;
-                while (i < text.length) {
-                    const index = textLower.indexOf(searchLower, i);
-                    if (index === -1) {
-                        result += text.slice(i);
-                        break;
-                    }
-                    result += text.slice(i, index);
-                    result += '<mark>' + text.slice(index, index + this.search.length) + '</mark>';
-                    i = index + this.search.length;
-                }
-                return result;
+                const regex = new RegExp(`(${this.search})`, 'gi');
+                return text.replace(regex, '<mark>$1</mark>');
             }
         }
     }

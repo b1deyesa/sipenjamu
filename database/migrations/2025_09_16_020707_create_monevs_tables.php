@@ -15,21 +15,20 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->json('fields')->nullable();
             $table->timestamps();
         });
-        
+
         Schema::create('monev_fields', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('monev_table_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('monev_table_id')->constrained('monev_tables')->cascadeOnDelete();
             $table->string('name');
             $table->string('type');
             $table->timestamps();
         });
-        
+
         Schema::create('monev_rows', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('monev_table_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('monev_table_id')->constrained('monev_tables')->cascadeOnDelete();
             $table->foreignId('upps_id')->constrained('upps')->cascadeOnDelete();
             $table->json('data');
             $table->timestamps();
@@ -41,6 +40,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('monevs_tables');
+        Schema::dropIfExists('monev_rows');
+        Schema::dropIfExists('monev_fields');
+        Schema::dropIfExists('monev_tables');
     }
 };

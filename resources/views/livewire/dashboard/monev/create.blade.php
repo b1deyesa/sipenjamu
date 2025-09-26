@@ -1,5 +1,5 @@
 <x-modal>
-    <x-slot:label><i class="fa-solid fa-plus"></i>Add New</x-slot:label>
+    <x-slot:label><i class="fa-solid fa-plus"></i>Add data</x-slot:label>
     <x-form wire="store">
         @foreach ($fields as $field)
             <x-input type="{{ $field['type'] }}" label="{{ ucfirst($field['name']) }}" wire="form.{{ $field['name'] }}" />
