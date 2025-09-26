@@ -23,13 +23,13 @@ class Create extends Component
     
     public function store()
     {
-        $rules = [];
+        // $rules = [];
         
-        foreach ($this->fields as $field) {
-            $rules['form.' . $field['name']] = 'required';
-        }
+        // foreach ($this->fields as $field) {
+        //     $rules['form.' . $field['name']] = 'required';
+        // }
         
-        $this->validate($rules);
+        // $this->validate($rules);
 
         MonevRow::create([
             'monev_table_id' => $this->table->id,
