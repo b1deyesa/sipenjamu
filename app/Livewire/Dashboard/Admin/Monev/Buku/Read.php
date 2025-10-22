@@ -12,7 +12,7 @@ class Read extends Component
     
     public function mount()
     {
-        $this->monevs = MonevTable::all();
+        $this->monevs = MonevTable::where('category', 'buku')->get();
     }
     
     public function render()

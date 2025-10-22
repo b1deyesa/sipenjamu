@@ -1,5 +1,5 @@
-<x-layout.admin class="spmi__pelaksanaan" title="SPMI" subtitle="Pelaksanaan">
+<x-layout.admin class="spmi__pelaksanaan" title="Pelaksanaan" subtitle="SPMI">
     
-    @livewire('dashboard.admin.spmi.pelaksanaan.read')
+    @livewire('dashboard.admin.spmi.pelaksanaan.read', compact('periode'))
     
 </x-layout.admin>

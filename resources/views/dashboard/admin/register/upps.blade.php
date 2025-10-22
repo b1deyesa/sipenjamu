@@ -1,4 +1,4 @@
-<x-layout.admin class="register__upps" title="Register" subtitle="UPPS">
+<x-layout.admin class="register__upps" title="UPPS" subtitle="Register">
     
     @livewire('dashboard.admin.register.upps.read')
     

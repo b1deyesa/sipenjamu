@@ -2,13 +2,15 @@
 
 namespace App\Livewire\Dashboard\Spmi\Pelaksanaan;
 
-use App\Models\PelaksanaanUpps;
-use App\Models\Upps;
 use Livewire\Component;
+use App\Models\Upps;
+use App\Models\Periode;
+use App\Models\PelaksanaanUpps;
 
 class Status extends Component
 {
     public Upps $upps;
+    public Periode $periode;
     public PelaksanaanUpps $pelaksanaanUpps;
     public $statuses;
     
@@ -22,7 +24,7 @@ class Status extends Component
         $statuses = [
             'Belum ada pengaturan' => 'Belum ada pengaturan',
             'Masih dalam proses' => 'Masih dalam proses',
-            'Lainnya' => 'Lainnya' 
+            'Lainnya' => 'Lainnya'
         ];
         
         $this->statuses = json_encode($statuses);
@@ -49,7 +51,10 @@ class Status extends Component
             'document_status' => false
         ]);
         
-        return redirect()->route('dashboard.spmi.pelaksanaan', ['upps' => $this->upps])->with('success', 'Successfully update pelaksanaan');
+        return redirect()->route('dashboard.spmi.pelaksanaan', [
+            'upps' => $this->upps,
+            'periode' => $this->periode
+        ])->with('success', 'Successfully update pelaksanaan');
     }
     
     public function updateNo()
@@ -76,13 +81,17 @@ class Status extends Component
             'document_status' => false
         ]);
         
-        return redirect()->route('dashboard.spmi.pelaksanaan', ['upps' => $this->upps])->with('success', 'Successfully update pelaksanaan');
+        return redirect()->route('dashboard.spmi.pelaksanaan', [
+            'upps' => $this->upps,
+            'periode' => $this->periode
+        ])->with('success', 'Successfully update pelaksanaan');
     }
     
     public function render()
     {
         return view('livewire.dashboard.spmi.pelaksanaan.status', [
             'upps' => $this->upps,
+            'periode' => $this->periode,
             'pelaksanaanUpps' => $this->pelaksanaanUpps
         ]);
     }

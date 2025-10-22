@@ -1,10 +1,17 @@
 <x-crud-table 
     :items="$users" 
-    :searchField="[
-        'Name' => 'name',
-        'Email' => 'email',
+    :search-field="[
+        [
+            'label' => 'Name', 
+            'name' => 'name'
+        ],
+        [
+            'label' => 'Email', 
+            'name' => 'email',
+            'type' => 'email'
+        ],
     ]"
-    createComponent="dashboard.admin.register.user.create" 
-    updateComponentPrefix="dashboard.admin.register.user.update" 
-    deleteComponentPrefix="dashboard.admin.register.user.delete"
-></x-crud-table>
+    create-component="dashboard.admin.register.user.create" 
+    update-component-prefix="dashboard.admin.register.user.update" 
+    delete-component-prefix="dashboard.admin.register.user.delete"
+/>

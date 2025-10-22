@@ -6,13 +6,11 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('pengendalian_upps', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('periode_id')->constrained('periodes')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('pengendalian_id')->constrained('pengendalians')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('upps_id')->constrained('upps')->cascadeOnUpdate()->cascadeOnDelete();
             $table->text('link_rtm')->nullable();
@@ -25,9 +23,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('pengendalian_upps');

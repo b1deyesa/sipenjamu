@@ -3,37 +3,43 @@
 namespace App\Http\Controllers\Dashboard\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Periode;
 use Illuminate\Http\Request;
 
 class SpmiController extends Controller
 {
-    public function standarYangDitetapakanInstitusi()
+    public function profil(Periode $periode)
     {
-        return view('dashboard.admin.spmi.standar-yang-ditetapkan-institusi');
+        return view('dashboard.admin.spmi.profil', compact('periode'));
     }
     
-    public function standarLain()
+    public function standarYangDitetapakanInstitusi(Periode $periode)
     {
-        return view('dashboard.admin.spmi.standar-lain');
+        return view('dashboard.admin.spmi.standar-yang-ditetapkan-institusi', compact('periode'));
     }
     
-    public function pelaksanaan()
+    public function standarLain(Periode $periode)
     {
-        return view('dashboard.admin.spmi.pelaksanaan');
+        return view('dashboard.admin.spmi.standar-lain', compact('periode'));
     }
     
-    public function evaluasi()
+    public function pelaksanaan(Periode $periode)
     {
-        return view('dashboard.admin.spmi.evaluasi');
+        return view('dashboard.admin.spmi.pelaksanaan', compact('periode'));
     }
     
-    public function peningkatan()
+    public function evaluasiLain(Periode $periode)
     {
-        return view('dashboard.admin.spmi.peningkatan');
+        return view('dashboard.admin.spmi.evaluasi-lain', compact('periode'));
     }
     
-    public function pengendalian()
+    public function peningkatan(Periode $periode)
     {
-        return view('dashboard.admin.spmi.pengendalian');
+        return view('dashboard.admin.spmi.peningkatan', compact('periode'));
+    }
+    
+    public function pengendalian(Periode $periode)
+    {
+        return view('dashboard.admin.spmi.pengendalian', compact('periode'));
     }
 }

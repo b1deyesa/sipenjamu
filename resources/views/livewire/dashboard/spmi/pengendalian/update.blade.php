@@ -1,7 +1,9 @@
 <x-modal title="Edit Bentuk Pengendalian" subtitle="{{ $pengendalianUpps->pengendalian->name }}">
 
     {{-- Button --}}
-    <x-slot:label><i class="fa-solid fa-pencil"></i></x-slot:label>
+    <x-slot:trigger>
+        <x-button class="button__info"><i class="fa-solid fa-pencil"></i></x-button>
+    </x-slot:trigger>
     
     {{-- Form --}}
     <x-form wire="update">

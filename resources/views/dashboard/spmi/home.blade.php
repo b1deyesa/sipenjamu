@@ -1,16 +1,9 @@
 <x-layout.spmi class="home">
     
-    {{-- Home Header --}}
-    <div class="home__header">
-        <h1 class="header__title">Sistem Penjaminan Mutu Internal</h1>    
-        <h2 class="header__subtitle">Universitas Pattimura</h2>  
-        <h5 class="header__user">{{ $upps->name }}</h5>
-    </div>
-    
     {{-- Home Profile --}}
     <div class="home__profile">
         <img class="profile__background" src="{{ asset('assets/img/gedung-unpatti.jpg') }}">
-        <div class="profile__container">
+        <div class="profile__container" style="background: {{ $upps->color }}">
             <div class="profile__left">
                 <div class="profile__avatar">
                     <img src="{{ asset('assets/img/logo-unpatti.png') }}">
@@ -19,27 +12,27 @@
                     <div class="list__item">
                         <h5 class="item__label">Kode PT</h5>
                         <span>:</span>
-                        <div class="item__value">{{ $profil_upps->where('profil_id', 1)->first()->value ?? '-' }}</div>
+                        <div class="item__value">{{ $profil_upps->where('profil_id', 1)->first()?->value }}</div>
                     </div>
                     <div class="list__item">
                         <h5 class="item__label">Nomor SK UPPS</h5>
                         <span>:</span>
-                        <div class="item__value">{{ $profil_upps->where('profil_id', 2)->first()->value ?? '-' }}</div>
+                        <div class="item__value">{{ $profil_upps->where('profil_id', 2)->first()?->value }}</div>
                     </div>
                     <div class="list__item">
                         <h5 class="item__label">Tanggal Berdiri</h5>
                         <span>:</span>
-                        <div class="item__value">{{ \Carbon\Carbon::parse($profil_upps->where('profil_id', 3)->first()->value)->format('d M Y') ?? '-' }}</div>
+                        <div class="item__value">{{ $profil_upps->where('profil_id', 3)->first()?->value ? \Carbon\Carbon::parse($profil_upps->where('profil_id', 3)->first()?->value)->format('d M Y') : null }}</div>
                     </div>
                     <div class="list__item">
                         <h5 class="item__label">Jumlah Dosen</h5>
                         <span>:</span>
-                        <div class="item__value">{{ $profil_upps->where('profil_id', 4)->first()->value ?? '-' }}</div>
+                        <div class="item__value">{{ $profil_upps->where('profil_id', 4)->first()?->value }}</div>
                     </div>
                     <div class="list__item">
                         <h5 class="item__label">Jumlah Tenaga Kependidikan</h5>
                         <span>:</span>
-                        <div class="item__value">{{ $profil_upps->where('profil_id', 5)->first()->value ?? '-' }}</div>
+                        <div class="item__value">{{ $profil_upps->where('profil_id', 5)->first()?->value }}</div>
                     </div>
                 </div>
             </div>
@@ -50,22 +43,22 @@
                         <div class="list__item">
                             <h5 class="item__label">Kode Pos</h5>
                             <span>:</span>
-                            <div class="item__value">{{ $profil_upps->where('profil_id', 6)->first()->value ?? '-' }}</div>
+                            <div class="item__value">{{ $profil_upps->where('profil_id', 6)->first()?->value }}</div>
                         </div>
                         <div class="list__item">
                             <h5 class="item__label">Telepon</h5>
                             <span>:</span>
-                            <div class="item__value">{{ $profil_upps->where('profil_id', 7)->first()->value ?? '-' }}</div>
+                            <div class="item__value">{{ $profil_upps->where('profil_id', 7)->first()?->value }}</div>
                         </div>
                         <div class="list__item">
                             <h5 class="item__label">Website</h5>
                             <span>:</span>
-                            <div class="item__value">{{ $profil_upps->where('profil_id', 8)->first()->value ?? '-' }}</div>
+                            <div class="item__value">{{ $profil_upps->where('profil_id', 8)->first()?->value }}</div>
                         </div>
                         <div class="list__item">
                             <h5 class="item__label">Email</h5>
                             <span>:</span>
-                            <div class="item__value">{{ $profil_upps->where('profil_id', 9)->first()->value ?? '-' }}</div>
+                            <div class="item__value">{{ $profil_upps->where('profil_id', 9)->first()?->value }}</div>
                         </div>
                     </div>
                 </div>
@@ -94,38 +87,38 @@
         <div class="module__list">
             <button class="list__arrow prev"><i class="fa-solid fa-angle-left"></i></button>
             <div class="list__content">
-                <a class="list__item" href="">
+                <a class="list__item" href="{{ route('dashboard.spmi.penetapan.standar-yang-ditetapkan-institusi', compact('upps', 'periode')) }}">
                     <div class="item__icon"><i class="fa-solid fa-clipboard-list"></i></div>
                     <div class="item__right">
-                        <small class="item__progress">13/20 Complete</small>
+                        <small class="item__progress">{{ $penetapan->where('verification_status', 'accepted')->count() }}/{{ $penetapan->count() }} Complete</small>
                         <h4 class="item__title">Penetapan</h4>
                     </div>
                 </a>
-                <a class="list__item" href="">
+                <a class="list__item" href="{{ route('dashboard.spmi.pelaksanaan', compact('upps', 'periode')) }}">
                     <div class="item__icon"><i class="fa-solid fa-clipboard-list"></i></div>
                     <div class="item__right">
-                        <small class="item__progress">13/20 Complete</small>
+                        <small class="item__progress">{{ $pelaksanaan->where('verification_status', 'accepted')->count() }}/{{ $pelaksanaan->count() }} Complete</small>
                         <h4 class="item__title">Pelaksanaan</h4>
                     </div>
                 </a>
-                <a class="list__item" href="">
+                <a class="list__item" href="{{ route('dashboard.spmi.evaluasi.evaluasi-lain', compact('upps', 'periode')) }}">
                     <div class="item__icon"><i class="fa-solid fa-clipboard-list"></i></div>
                     <div class="item__right">
-                        <small class="item__progress">13/20 Complete</small>
+                        <small class="item__progress">{{ $evaluasis->where('verification_status', 'accepted')->count() }}/{{ $evaluasis->count() }} Complete</small>
                         <h4 class="item__title">Evaluasi</h4>
                     </div>
                 </a>
-                <a class="list__item" href="">
+                <a class="list__item" href="{{ route('dashboard.spmi.pengendalian', compact('upps', 'periode')) }}">
                     <div class="item__icon"><i class="fa-solid fa-clipboard-list"></i></div>
                     <div class="item__right">
-                        <small class="item__progress">13/20 Complete</small>
+                        <small class="item__progress">{{ $pengendalian->where('verification_status', 'accepted')->count() }}/{{ $pengendalian->count() }} Complete</small>
                         <h4 class="item__title">Pengendalian</h4>
                     </div>
                 </a>
-                <a class="list__item" href="">
+                <a class="list__item" href="{{ route('dashboard.spmi.peningkatan', compact('upps', 'periode')) }}">
                     <div class="item__icon"><i class="fa-solid fa-clipboard-list"></i></div>
                     <div class="item__right">
-                        <small class="item__progress">13/20 Complete</small>
+                        <small class="item__progress">{{ $peningkatan->where('verification_status', 'accepted')->count() }}/{{ $peningkatan->count() }} Complete</small>
                         <h4 class="item__title">Peningkatan</h4>
                     </div>
                 </a>

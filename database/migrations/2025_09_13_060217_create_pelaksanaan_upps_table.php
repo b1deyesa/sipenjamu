@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('pelaksanaan_upps', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('periode_id')->constrained('periodes')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('pelaksanaan_id')->constrained('pelaksanaans')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('upps_id')->constrained('upps')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('setting_status')->nullable();

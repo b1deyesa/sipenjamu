@@ -3,20 +3,23 @@
 namespace App\View\Components\Navigation;
 
 use Closure;
+use App\Models\Periode;
+use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\Component;
 
 class Dashboard extends Component
 {
-    public $upps_user;
+    public $upps = null;
+    public $periode = null;
     
     /**
      * Create a new component instance.
      */
     public function __construct()
     {
-        $this->upps_user = Auth::user()->uppses->first()?->id;
+        $this->upps = request()->route('upps') ?: Auth::user()->uppses?->first();
+        $this->periode = request()->route('periode') ?: Periode::orderBy('id', 'desc')->first();
     }
 
     /**

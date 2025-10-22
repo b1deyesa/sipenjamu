@@ -1,4 +1,4 @@
-<x-layout.admin class="register__program-studi" title="Register" subtitle="Program Studi">
+<x-layout.admin class="register__program-studi" title="Program Studi" subtitle="Register">
     
     @livewire('dashboard.admin.register.program-studi.read')
     

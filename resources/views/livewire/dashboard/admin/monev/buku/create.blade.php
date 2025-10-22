@@ -1,7 +1,9 @@
 <x-modal title="Add Buku IV" width="500px">
 
     {{-- Button --}}
-    <x-slot:label><i class="fa-solid fa-plus"></i>Tambahkan Form Baru</x-slot:label>
+    <x-slot:trigger>
+        <x-button class="button__success"><i class="fa-solid fa-plus"></i>Tambahkan Form Baru</x-button>
+    </x-slot:trigger>
     
     {{-- Form --}}
     <x-form wire="store">
@@ -9,9 +11,15 @@
         <hr class="modal__separator">
         @foreach ($datas as $key => $data)
             <div style="display: flex; align-items: flex-start; gap: .8em">
-                <x-input type="text" wire="datas.{{ $key }}.name" placeholder="Data Name" />
-                <x-input type="select" wire="datas.{{ $key }}.type" placeholder="Data Type" :options="$types" width="30%" />
-                <x-button class="button__outline" type="button" wire="removeData({{ $key }})"><i class="fa-solid fa-xmark"></i></x-button>
+                <span style="width: 100%">
+                    <x-input type="text" wire="datas.{{ $key }}.name" placeholder="Data Name" />
+                </span>
+                <span style="width: 50%">
+                    <x-input type="select" wire="datas.{{ $key }}.type" :options="$types"  />
+                </span>
+                <div style="display: flex; align-items: center; height: 100%; background:red">
+                    <button type="button" wire:click="removeData({{ $key }})" style="width: 1em"><i class="fa-solid fa-xmark"></i></button>
+                </div>
             </div>
         @endforeach
         <x-slot:bottom>

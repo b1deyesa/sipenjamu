@@ -4,10 +4,12 @@ namespace App\Livewire\Dashboard\Monev;
 
 use Livewire\Component;
 use App\Models\MonevTable;
+use App\Models\Periode;
 
 class Read extends Component
 {
-    public $upps;
+    public Periode $periode;
+    public $programStudi;
     public $slug;
     public $table;
     public $tables;
@@ -16,15 +18,29 @@ class Read extends Component
     
     public function mount()
     {
-        $this->table = MonevTable::where('slug', $this->slug)->firstOrFail();
+        $this->table = MonevTable::with([
+            'rows' => function ($q) {
+                $q->where('periode_id', $this->periode->id);
+            },
+            'fields' // pastikan relasi fields ada di model MonevTable
+        ])->where('slug', $this->slug)->firstOrFail();        
+
+        $fieldNames = $this->table->fields()
+            ->orderBy('id')
+            ->pluck('name')
+            ->toArray();
 
         $this->tables = $this->table->rows
-            ->where('upps_id', $this->upps->id)
-            ->map(function ($row) {
+            ->where('program_studi_id', $this->programStudi->id)
+            ->map(function ($row) use ($fieldNames) {
                 $data = (array) $row->data;
 
-                // siapkan text untuk pencarian sekali saja
-                $searchableText = collect($data)->map(function ($value) {
+                $orderedData = collect($fieldNames)
+                    ->filter(fn($key) => array_key_exists($key, $data))
+                    ->mapWithKeys(fn($key) => [$key => $data[$key]])
+                    ->toArray();
+
+                $searchableText = collect($orderedData)->map(function ($value) {
                     if (is_array($value)) {
                         return implode(' ', $value);
                     } elseif (!is_string($value)) {
@@ -33,27 +49,32 @@ class Read extends Component
                     return $value;
                 })->join(' ');
 
-                return (object) array_merge(['id' => $row->id, 'searchable_text' => $searchableText], $data);
-            });
+                return (object) array_merge([
+                    'id' => $row->id,
+                    'searchable_text' => $searchableText,
+                ], $orderedData);
+            })
+            ->sortBy('id')
+            ->values();
 
         $firstRow = $this->tables->first();
+
         $this->searchField = $firstRow 
             ? collect(array_keys(get_object_vars($firstRow)))
                 ->reject(fn ($key) => in_array($key, ['id', 'searchable_text']))
                 ->mapWithKeys(fn ($key) => [$key => $key])
                 ->all()
             : [];
-
-        $this->fields = $this->table->fields
-            ? json_decode($this->table->fields, true)
-            : [];
+                
+        $this->fields = $fieldNames;
     }
     
     public function render()
     {
         return view('livewire.dashboard.monev.read', [
-            'upps' => $this->upps,
-            'slug' => $this->slug
+            'programStudi' => $this->programStudi,
+            'slug' => $this->slug,
+            'periode' => $this->periode,
         ]);
     }
 }

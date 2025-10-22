@@ -3,37 +3,38 @@
 namespace App\Livewire\Dashboard\Admin\Spmi\StandarYangDitetapkanInstitusi;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use App\Models\StandarYangDitetapkanInstitusi;
+use App\Models\{Periode, StandarYangDitetapkanInstitusi, StandarYangDitetapkanInstitusiUpps};
+use Illuminate\Support\Facades\{Auth, Hash};
 use Illuminate\Validation\ValidationException;
 
 class Delete extends Component
 {
+    public Periode $periode;
     public StandarYangDitetapkanInstitusi $item;
     public $password;
-    
+
     public function destroy()
     {
         $this->validate([
-            'password' => 'required'
+            'password' => 'required',
         ]);
-        
-        if (!Hash::check($this->password, Auth::user()->password)) {
+
+        if (!Auth::check() || !Hash::check($this->password, Auth::user()->password)) {
             throw ValidationException::withMessages([
                 'password' => 'Password does not match.',
             ]);
         }
-        
-        $this->item->delete();
-        
-        return redirect()->route('dashboard.admin.spmi.standar-yang-ditetapkan-institusi')->with('success', 'Successfully deleted standar yang ditetapkan institusi');
+
+        StandarYangDitetapkanInstitusiUpps::where('standar_yang_ditetapkan_institusi_id', $this->item->id)->where('periode_id', $this->periode->id)->delete();
+
+        return redirect()->route('dashboard.admin.spmi.standar-yang-ditetapkan-institusi', $this->periode)->with('success', 'Standar yang ditetapkan institusi berhasil dihapus.');
     }
-    
+
     public function render()
     {
         return view('livewire.dashboard.admin.spmi.standar-yang-ditetapkan-institusi.delete', [
-            'item' => $this->item
+            'item' => $this->item,
+            'periode' => $this->periode,
         ]);
     }
 }

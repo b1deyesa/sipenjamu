@@ -14,7 +14,7 @@
     <x-table>
         <x-slot:head>
             <th>UPPS</th>
-            <th>Document</th>
+            <th >Document</th>
             <th>Verification</th>
         </x-slot:head>
         <x-slot:body>
@@ -23,12 +23,7 @@
                     <td>{{ $standarYangDitetapkanInstitusiUpps->upps->name }}</td>
                     <td width="1%">
                         @if ($standarYangDitetapkanInstitusiUpps->setting_status == 'Ada')
-                            <div class="table__action">
-                                {!! linkIcon($standarYangDitetapkanInstitusiUpps->link) !!}
-                                @if (!$standarYangDitetapkanInstitusiUpps->document_status)
-                                    <x-button wire="updateDocument({{ $standarYangDitetapkanInstitusiUpps->upps_id }}, {{ true }})"><i class="fa-solid fa-check"></i></x-button>
-                                @endif
-                            </div>
+                            {!! linkIcon($standarYangDitetapkanInstitusiUpps->link) !!}
                         @else
                             <span style="white-space: nowrap">{{ $standarYangDitetapkanInstitusiUpps->setting_status }}</span>
                         @endif

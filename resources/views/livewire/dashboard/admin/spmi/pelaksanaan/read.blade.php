@@ -1,11 +1,13 @@
 <x-crud-table 
     :items="$pelaksanaans" 
-    :searchField="[
-        'Setting Name' => 'name'
+    :search-field="[
+        [
+            'label' => 'Setting Name', 
+            'name' => 'name'
+        ],
     ]"
-    createComponent="dashboard.admin.spmi.pelaksanaan.create" 
-    updateComponentPrefix="dashboard.admin.spmi.pelaksanaan.update" 
-    deleteComponentPrefix="dashboard.admin.spmi.pelaksanaan.delete"
-    reviewComponentPrefix="dashboard.admin.spmi.pelaksanaan.review"
->
-</x-crud-table>
+    create-component="dashboard.admin.spmi.pelaksanaan.create" 
+    update-component-prefix="dashboard.admin.spmi.pelaksanaan.update" 
+    delete-component-prefix="dashboard.admin.spmi.pelaksanaan.delete"
+    review-component-prefix="dashboard.admin.spmi.pelaksanaan.review"
+/>

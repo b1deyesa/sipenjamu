@@ -1,4 +1,9 @@
 <x-layout.dashboard class="monev">
+    
+    {{-- Monev Navigation --}}
+    <x-navigation.monev />
+    
+    {{-- Monev Section --}}
     <div class="monev__container two-section">
         
         {{-- Two Section Header --}}

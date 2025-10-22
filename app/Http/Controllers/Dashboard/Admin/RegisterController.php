@@ -10,14 +10,12 @@ class RegisterController extends Controller
 {
     public function index()
     {
-        return view('dashboard.admin.register.index');
+        return view('dashboard.admin.index');
     } 
     
     public function role()
     {
-        return view('dashboard.admin.register.role', [
-            'roles' => Role::all()
-        ]);
+        return view('dashboard.admin.register.role');
     }
     
     public function upps()
@@ -38,5 +36,10 @@ class RegisterController extends Controller
     public function user()
     {
         return view('dashboard.admin.register.user');
+    }
+    
+    public function periode()
+    {
+        return view('dashboard.admin.register.periode');
     }
 }

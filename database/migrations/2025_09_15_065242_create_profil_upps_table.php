@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('profil_upps', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('periode_id')->constrained('periodes')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('profil_id')->constrained('profils')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('upps_id')->constrained('upps')->cascadeOnUpdate()->cascadeOnDelete();
             $table->text('value')->nullable();

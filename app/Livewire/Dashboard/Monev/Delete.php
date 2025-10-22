@@ -4,13 +4,15 @@ namespace App\Livewire\Dashboard\Monev;
 
 use App\Models\MonevRow;
 use App\Models\MonevTable;
+use App\Models\Periode;
 use Livewire\Component;
 
 class Delete extends Component
 {
+    public Periode $periode;
     public $row;
     public $slug;
-    public $upps;
+    public $programStudi;
     public $table;
     
     public function mount()
@@ -20,17 +22,23 @@ class Delete extends Component
     
     public function destroy()
     {
-        MonevRow::find($this->row)->delete();
+        MonevRow::find($this->row)?->delete();
         
-        return redirect()->route('dashboard.monev.show', ['upps' => $this->upps, 'slug' => $this->slug])->with('success', 'Successfully deleted data '. $this->table->name);
+        return redirect()->route('dashboard.monev.show', [
+            'upps' => $this->programStudi->upps,
+            'programStudi' => $this->programStudi,
+            'periode' => $this->periode,
+            'slug' => $this->slug
+        ])->with('success', 'Successfully deleted data ' . $this->table->name);
     }
     
     public function render()
     {
         return view('livewire.dashboard.monev.delete', [
             'row' => $this->row,
-            'slug' => $this->slug,
-            'upps' => $this->upps
+            'programStudi' => $this->programStudi,
+            'periode' => $this->periode,
+            'slug' => $this->slug
         ]);
     }
 }

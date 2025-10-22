@@ -13,6 +13,7 @@ use App\Models\StandarLainUpps;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\StandarYangDitetapkanInstitusi;
 use App\Models\StandarYangDitetapkanInstitusiUpps;
+use App\View\Components\Layout\Penetapan;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -26,7 +27,7 @@ class Upps extends Model
         static::created(function ($upps) {
             $profils = Profil::all();
             foreach ($profils as $profil) {
-                ProfilUpps::create([
+                Profil::create([
                     'profil_id' => $profil->id,
                     'upps_id' => $upps->id
                 ]);
@@ -88,8 +89,28 @@ class Upps extends Model
         return $this->hasMany(MonevTable::class);
     }
     
+    public function standarYangDitetapkanInstitusiUpps(): HasMany
+    {
+        return $this->hasMany(StandarYangDitetapkanInstitusiUpps::class);
+    }
+    
+    public function standarLainUpps(): HasMany
+    {
+        return $this->hasMany(StandarLainUpps::class);
+    }
+    
     public function pelaksanaanUpps(): HasMany
     {
         return $this->hasMany(PelaksanaanUpps::class);
+    }
+    
+    public function pengendalianUpps(): HasMany
+    {
+        return $this->hasMany(PengendalianUpps::class);
+    }
+    
+    public function peningkatanUpps(): HasMany
+    {
+        return $this->hasMany(PeningkatanUpps::class);
     }
 }

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('evaluasis', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('periode_id')->constrained('periodes')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('upps_id')->constrained('upps')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('name');
             $table->date('date');

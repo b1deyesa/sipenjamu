@@ -42,7 +42,7 @@ class Input extends Component
         $this->value = $value;
         $this->placeholder = $placeholder;
         $this->required = $required;
-        $this->options = json_decode($options, true);
+        $this->options = is_string($options) && $options !== [] ? json_decode($options, true) : ($options ?? []);    
         $this->class = $class;
         $this->width = $width;
     }

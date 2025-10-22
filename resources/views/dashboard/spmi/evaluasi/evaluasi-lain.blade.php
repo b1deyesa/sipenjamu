@@ -8,7 +8,7 @@
     {{-- Evaluasi Table --}}
     <x-table>
         <x-slot:head>
-            <th>No</th>
+            <th width="1%">No</th>
             <th>Nama Pengaturan</th>
             <th width="1%">Tautan</th>
             <th width="1%">Tanggal Diperbarui</th>

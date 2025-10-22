@@ -2,19 +2,21 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasPeriode;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class MonevRow extends Model
 {
-    use HasFactory;
+    use HasFactory, HasPeriode;
 
     protected $table = 'monev_rows';
 
     protected $fillable = [
+        'periode_id',
         'monev_table_id',
-        'upps_id',
-        'data',
+        'program_studi_id',
+        'data'
     ];
 
     protected $casts = [
@@ -26,8 +28,8 @@ class MonevRow extends Model
         return $this->belongsTo(MonevTable::class, 'monev_table_id');
     }
 
-    public function upps()
+    public function programStudi()
     {
-        return $this->belongsTo(Upps::class, 'upps_id');
+        return $this->belongsTo(ProgramStudi::class);
     }
 }

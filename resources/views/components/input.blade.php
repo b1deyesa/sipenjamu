@@ -25,7 +25,7 @@
             <div x-data="{ options: @js($options), q: @entangle($wire . '.value'), k: @entangle($wire . '.key'), isFocused: false, filtered() { if (!this.q) { return Object.entries(this.options); } return Object.entries(this.options).filter(([_, v]) => v.toLowerCase().includes(this.q.toLowerCase())); }, choose(key, val) { this.k = key; this.q = val; this.isFocused = false; $wire.set('{{ $wire }}.key', key); $wire.set('{{ $wire }}.value', val); }, blurHandler() { setTimeout(() => { this.isFocused = false; }, 150); let f = Object.entries(this.options).find(([_, v]) => v.toLowerCase() === this.q.toLowerCase()); if (f) { this.k = f[0]; this.q = f[1]; $wire.set('{{ $wire }}.key', f[0]); $wire.set('{{ $wire }}.value', f[1]); } else { this.k = ''; $wire.set('{{ $wire }}.key', ''); $wire.set('{{ $wire }}.value', this.q); } } }" class="select-search">
                 <input type="text" x-model="q" @focus="isFocused = true" @input="isFocused = true" @blur="blurHandler" placeholder="{{ $placeholder }}" class="{{ $class }} @error($name.'.key') error @enderror">
                 <input type="hidden" x-model="k" name="{{ $wire }}[key]">
-                <ul x-show="isFocused" x-transition>
+                <ul x-show="isFocused && filtered().length" x-transition>
                     <template x-for="[key, val] in filtered()" :key="key">
                         <li @mousedown.prevent="choose(key, val)" x-text="val"></li>
                     </template>

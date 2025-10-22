@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers\Dashboard\Spmi;
 
-use App\Http\Controllers\Controller;
-use App\Models\PeningkatanUpps;
 use App\Models\Upps;
-use Illuminate\Http\Request;
+use App\Models\Periode;
+use App\Models\PeningkatanUpps;
+use App\Http\Controllers\Controller;
 
 class PeningkatanController extends Controller
 {
-    public function index(Upps $upps)
+    public function index(Upps $upps, Periode $periode)
     {
-        $peningkatanUppses = PeningkatanUpps::where('upps_id', $upps->id)->get();
-        
-        return view('dashboard.spmi.peningkatan', compact('upps', 'peningkatanUppses'));
+        $peningkatanUppses = PeningkatanUpps::where('upps_id', $upps->id)
+            ->where('periode_id', $periode->id)
+            ->with('peningkatan')
+            ->get();
+
+        return view('dashboard.spmi.peningkatan', compact('upps', 'periode', 'peningkatanUppses'));
     }
 }

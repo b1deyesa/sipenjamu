@@ -1,4 +1,4 @@
-<x-layout.admin class="register__jenjang" title="Register" subtitle="Jenjang">
+<x-layout.admin class="register__jenjang" title="Jenjang" subtitle="Register">
     
     @livewire('dashboard.admin.register.jenjang.read')
     

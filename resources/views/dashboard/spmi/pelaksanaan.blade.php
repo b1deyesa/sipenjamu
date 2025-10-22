@@ -3,7 +3,7 @@
     {{-- Pelaksanaan Table --}}
     <x-table>
         <x-slot:head>
-            <th>No</th>
+            <th width="1%">No</th>
             <th>Nama Pengaturan</th>
             <th width="1%">Status Pengaturan</th>
             <th width="1%">Tautan</th>
@@ -16,14 +16,14 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $pelaksanaanUpps->pelaksanaan->name }}</td>
-                    <td>@livewire('dashboard.spmi.pelaksanaan.status', compact('upps', 'pelaksanaanUpps'), key($pelaksanaanUpps->id))</td>
+                    <td>@livewire('dashboard.spmi.pelaksanaan.status', compact('upps', 'periode', 'pelaksanaanUpps'), key($pelaksanaanUpps->id))</td>
                     @if ($pelaksanaanUpps->setting_status == 'Ada')
                         <td align="center">{!! linkIcon($pelaksanaanUpps->link) !!}</td>
                         <td align="center">{!! status($pelaksanaanUpps->verification_status) !!}</td>
                         <td align="center">{!! accept($pelaksanaanUpps->document_status ? 'Document Verified' : 'Dokument Proccess') !!}</td>
                         <td>
                             <div class="table__action">
-                                @livewire('dashboard.spmi.pelaksanaan.update', compact('upps', 'pelaksanaanUpps'), key($pelaksanaanUpps->id))
+                                @livewire('dashboard.spmi.pelaksanaan.update', compact('upps', 'periode', 'pelaksanaanUpps'), key($pelaksanaanUpps->id))
                             </div>
                         </td>
                     @else
@@ -31,7 +31,7 @@
                             <td colspan="3" align="center"><small style="font-size: .9em">{{ $pelaksanaanUpps->setting_status }}</small></td>
                             <td>
                                 <div class="table__action">
-                                    @livewire('dashboard.spmi.pelaksanaan.update', compact('upps', 'pelaksanaanUpps'), key($pelaksanaanUpps->id))
+                                    @livewire('dashboard.spmi.pelaksanaan.update', compact('upps', 'periode', 'pelaksanaanUpps'), key($pelaksanaanUpps->id))
                                 </div>
                             </td>
                         @else

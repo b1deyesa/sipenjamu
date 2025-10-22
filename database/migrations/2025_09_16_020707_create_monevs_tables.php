@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('monev_tables', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->enum('category', ['buku', 'tks']);
             $table->string('slug')->unique();
             $table->timestamps();
         });
@@ -28,11 +29,12 @@ return new class extends Migration
 
         Schema::create('monev_rows', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('periode_id')->constrained('periodes')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('monev_table_id')->constrained('monev_tables')->cascadeOnDelete();
-            $table->foreignId('upps_id')->constrained('upps')->cascadeOnDelete();
+            $table->foreignId('program_studi_id')->constrained('program_studis')->cascadeOnDelete();
             $table->json('data');
             $table->timestamps();
-        });
+        });        
     }
 
     /**

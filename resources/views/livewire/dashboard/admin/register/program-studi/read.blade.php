@@ -1,11 +1,20 @@
 <x-crud-table 
     :items="$program_studis" 
-    :searchField="[
-        'Program Studi Name' => 'name',
-        'UPPS' => 'upps.name',
-        'Jenjang' => 'jenjang.name'
+    :search-field="[
+        [
+            'label' => 'Program Studi Name', 
+            'name' => 'name'
+        ],
+        [
+            'label' => 'UPPS', 
+            'name' => 'upps.name'
+        ],
+        [
+            'label' => 'Jenjang', 
+            'name' => 'jenjang.name'
+        ],
     ]"
-    createComponent="dashboard.admin.register.program-studi.create" 
-    updateComponentPrefix="dashboard.admin.register.program-studi.update" 
-    deleteComponentPrefix="dashboard.admin.register.program-studi.delete"
-></x-crud-table>
+    create-component="dashboard.admin.register.program-studi.create" 
+    update-component-prefix="dashboard.admin.register.program-studi.update" 
+    delete-component-prefix="dashboard.admin.register.program-studi.delete"
+/>

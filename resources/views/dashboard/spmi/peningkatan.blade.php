@@ -3,7 +3,7 @@
     {{-- Peningkatan Table --}}
     <x-table>
         <x-slot:head>
-            <th>No</th>
+            <th width="1%">No</th>
             <th>Nama Pengaturan</th>
             <th width="1%">Status Pengaturan</th>
             <th width="1%">Tautan</th>
@@ -17,7 +17,7 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $peningkatanUpps->peningkatan->name }}</td>
-                    <td>@livewire('dashboard.spmi.peningkatan.status', compact('upps', 'peningkatanUpps'), key($peningkatanUpps->id))</td>
+                    <td>@livewire('dashboard.spmi.peningkatan.status', compact('upps', 'periode', 'peningkatanUpps'), key($peningkatanUpps->id))</td>
                     @if ($peningkatanUpps->setting_status == 'Ada')
                         <td align="center">{!! linkIcon($peningkatanUpps->link) !!}</td>
                         <td>{{ \Carbon\Carbon::parse($peningkatanUpps->penetapan_date)->format('d/m/Y') }}</td>
@@ -25,7 +25,7 @@
                         <td align="center">{!! accept($peningkatanUpps->document_status ? 'Document Verified' : 'Dokument Proccess') !!}</td>
                         <td>
                             <div class="table__action">
-                                @livewire('dashboard.spmi.peningkatan.update', compact('upps', 'peningkatanUpps'), key($peningkatanUpps->id))
+                                @livewire('dashboard.spmi.peningkatan.update', compact('upps', 'periode', 'peningkatanUpps'), key($peningkatanUpps->id))
                             </div>
                         </td>
                     @else
@@ -33,7 +33,7 @@
                             <td colspan="4" align="center"><small style="font-size: .9em">{{ $peningkatanUpps->setting_status }}</small></td>
                             <td>
                                 <div class="table__action">
-                                    @livewire('dashboard.spmi.peningkatan.update', compact('upps', 'peningkatanUpps'), key($peningkatanUpps->id))
+                                    @livewire('dashboard.spmi.peningkatan.update', compact('upps', 'periode', 'peningkatanUpps'), key($peningkatanUpps->id))
                                 </div>
                             </td>
                         @else

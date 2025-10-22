@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Dashboard\Spmi\Evaluasi;
 
-use App\Http\Controllers\Controller;
 use App\Models\Upps;
+use App\Models\Periode;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class DosenController extends Controller
 {
-    public function index(Upps $upps)
+    public function index(Upps $upps, Periode $periode)
     {
-        return view('dashboard.spmi.evaluasi.dosen', compact('upps'));
+        return view('dashboard.spmi.evaluasi.dosen', compact('upps', 'periode'));
     }
 }

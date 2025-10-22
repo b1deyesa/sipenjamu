@@ -11,12 +11,14 @@ use Illuminate\Support\Collection;
 class MonevTemplateImport implements ToCollection
 {
     protected $table;
-    protected $upps;
+    protected $programStudi;
+    protected $periode;
 
-    public function __construct(MonevTable $table, $upps)
+    public function __construct(MonevTable $table, $programStudi, $periode)
     {
         $this->table = $table;
-        $this->upps = $upps;
+        $this->programStudi = $programStudi;
+        $this->periode = $periode;
     }
 
     public function collection(Collection $rows)
@@ -34,9 +36,11 @@ class MonevTemplateImport implements ToCollection
                 $data[$field] = $row[$i] ?? null;
             }
 
+            
             MonevRow::create([
+                'periode_id' => $this->periode->id,
                 'monev_table_id' => $this->table->id,
-                'upps_id' => $this->upps->id,
+                'program_studi_id' => $this->programStudi->id,
                 'data' => $data,
             ]);
         }

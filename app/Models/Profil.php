@@ -2,25 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Upps;
+use App\Models\Periode;
+use App\Models\ProfilUpps;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Profil extends Model
 {
     protected $guarded = ['id'];
-    
-    protected static function booted()
-    {
-        static::created(function ($profil) {
-            $uppses = Upps::all();
-            foreach ($uppses as $upps) {
-                ProfilUpps::create([
-                    'profil_id' => $profil->id,
-                    'upps_id' => $upps->id,
-                ]);
-            }
-        });
-    }
     
     public function profilUpps(): HasMany
     {

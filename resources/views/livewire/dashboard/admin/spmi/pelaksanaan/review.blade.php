@@ -25,9 +25,9 @@
                         @if ($pelaksanaanUpps->setting_status == 'Ada')
                             <div class="table__action">
                                 {!! linkIcon($pelaksanaanUpps->link) !!}
-                                @if (!$pelaksanaanUpps->document_status)
-                                    <x-button wire="updateDocument({{ $pelaksanaanUpps->upps_id }}, {{ true }})"><i class="fa-solid fa-check"></i></x-button>
-                                @endif
+                                {{-- @if (!$pelaksanaanUpps->document_status)
+                                    <x-button wire="updateDocument({{ $pelaksanaanUpps->upps_id }}, true)"><i class="fa-solid fa-check"></i></x-button>
+                                @endif --}}
                             </div>
                         @else
                             <span style="white-space: nowrap">{{ $pelaksanaanUpps->setting_status }}</span>

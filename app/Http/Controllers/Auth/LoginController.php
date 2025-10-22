@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Periode;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -26,7 +27,8 @@ class LoginController extends Controller
 
             if ($userRoles->intersect(['enumerator'])->isNotEmpty()) {
                 return redirect()->route('dashboard.spmi.home', [
-                    'upps' => Auth::user()->uppses->first()->id
+                    'upps' => Auth::user()->uppses->first()->id,
+                    'periode' => Periode::orderBy('id', 'desc')->first()
                 ]);
             } elseif ($userRoles->intersect(['admin'])->isNotEmpty()) {
                 return redirect()->route('dashboard.admin.register.upps');

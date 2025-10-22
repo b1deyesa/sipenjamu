@@ -11,4 +11,9 @@ class MonevController extends Controller
     {
         return view('dashboard.admin.monev.buku');
     }
+    
+    public function tks()
+    {
+        return view('dashboard.admin.monev.tks');
+    }
 }

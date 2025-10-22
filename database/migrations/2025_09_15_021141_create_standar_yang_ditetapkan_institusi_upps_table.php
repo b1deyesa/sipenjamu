@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('standar_yang_ditetapkan_institusi_upps', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('periode_id')->constrained('periodes')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('standar_yang_ditetapkan_institusi_id')->constrained('standar_yang_ditetapkan_institusis', 'id')->cascadeOnUpdate()->cascadeOnDelete()->index('fk_standar_id');
             $table->foreignId('upps_id')->constrained('upps')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('setting_status')->nullable();

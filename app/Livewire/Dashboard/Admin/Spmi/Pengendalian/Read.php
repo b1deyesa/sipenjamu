@@ -3,20 +3,25 @@
 namespace App\Livewire\Dashboard\Admin\Spmi\Pengendalian;
 
 use Livewire\Component;
-use App\Models\Pengendalian;
+use App\Models\{Periode, Pengendalian};
 
 class Read extends Component
 {
+    public Periode $periode;
     public $pengendalians;
     public $search;
-    
+
     public function mount()
     {
-        $this->pengendalians = Pengendalian::all();
+        $this->pengendalians = Pengendalian::whereHas('pengendalianUpps', function ($query) {
+            $query->where('periode_id', $this->periode->id);
+        })->get();
     }
-    
+
     public function render()
     {
-        return view('livewire.dashboard.admin.spmi.pengendalian.read');
+        return view('livewire.dashboard.admin.spmi.pengendalian.read', [
+            'periode' => $this->periode,
+        ]);
     }
 }

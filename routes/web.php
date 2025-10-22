@@ -22,9 +22,9 @@ Route::namespace('App\Http\Controllers\Auth')->name('auth.')->group(function() {
 Route::middleware('auth')->namespace('App\Http\Controllers\Dashboard')->prefix('dashboard')->name('dashboard.')->group(function() {
     
     // SPMI
-    Route::middleware(['role:admin,auditor'])->namespace('Spmi')->prefix('spmi/{upps}')->name('spmi.')->group(function() {
+    Route::middleware(['role:admin,auditor'])->namespace('Spmi')->prefix('spmi/{upps}/{periode}')->name('spmi.')->group(function() {
         Route::get('/home', 'HomeController@index')->name('home');
-        Route::get('/profil-upps', 'ProfilUppsController@index')->name('profil-upps');
+        Route::get('/profil', 'ProfilController@index')->name('profil');
         
         // Evaluasi
         Route::namespace('Evaluasi')->prefix('evaluasi')->name('evaluasi.')->group(function() {
@@ -48,7 +48,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers\Dashboard')->prefix('
     });
     
     // MONEV
-    Route::middleware(['role:admin,auditor'])->namespace('Monev')->prefix('monev/{upps}')->name('monev.')->group(function() {
+    Route::middleware(['role:admin,auditor'])->namespace('Monev')->prefix('monev/{upps}/{programStudi}/{periode}')->name('monev.')->group(function() {
         Route::get('/', 'IndexController@index')->name('index');
         Route::get('/{slug}/test', 'IndexController@show')->name('show');
         Route::get('/{slug}/export', 'IndexController@export')->name('export');
@@ -73,22 +73,25 @@ Route::middleware('auth')->namespace('App\Http\Controllers\Dashboard')->prefix('
     // Admin
     Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function() {
         
+        Route::get('/', 'RegisterController@index')->name('index');
+        
         // Register
         Route::prefix('register')->name('register.')->group(function() {
-            Route::get('/', 'RegisterController@index')->name('index');
             Route::get('/role', 'RegisterController@role')->name('role');
             Route::get('/upps', 'RegisterController@upps')->name('upps');
             Route::get('/jenjang', 'RegisterController@jenjang')->name('jenjang');
             Route::get('/program-studi', 'RegisterController@programStudi')->name('program-studi');
             Route::get('/user', 'RegisterController@user')->name('user');
+            Route::get('/periode', 'RegisterController@periode')->name('periode');
         });
         
         // SPMI
-        Route::prefix('spmi')->name('spmi.')->group(function() {
+        Route::prefix('spmi/{periode}')->name('spmi.')->group(function() {
+            Route::get('/profil', 'SpmiController@profil')->name('profil');
             Route::get('/standar-yang-ditetapkan-institusi', 'SpmiController@standarYangDitetapakanInstitusi')->name('standar-yang-ditetapkan-institusi');
             Route::get('/standar-lain', 'SpmiController@standarLain')->name('standar-lain');
             Route::get('/pelaksanaan', 'SpmiController@pelaksanaan')->name('pelaksanaan');
-            Route::get('/evaluasi', 'SpmiController@evaluasi')->name('evaluasi');
+            Route::get('/evaluasi-lain', 'SpmiController@evaluasiLain')->name('evaluasi-lain');
             Route::get('/peningkatan', 'SpmiController@peningkatan')->name('peningkatan');
             Route::get('/pengendalian', 'SpmiController@pengendalian')->name('pengendalian');
         });
@@ -96,7 +99,7 @@ Route::middleware('auth')->namespace('App\Http\Controllers\Dashboard')->prefix('
         // Monev
         Route::prefix('monev')->name('monev.')->group(function() {
             Route::get('/buku', 'MonevController@buku')->name('buku');
-            Route::get('/buku/{id}/export-template', 'MonevController@exportBukuTemplate')->name('buku.export');
+            Route::get('/tks', 'MonevController@tks')->name('tks');
         });
     });
 });

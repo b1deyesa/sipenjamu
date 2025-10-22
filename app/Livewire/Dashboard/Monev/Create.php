@@ -5,11 +5,13 @@ namespace App\Livewire\Dashboard\Monev;
 use Livewire\Component;
 use App\Models\MonevRow;
 use App\Models\MonevTable;
+use App\Models\Periode;
 use Illuminate\Support\Arr;
 
 class Create extends Component
 {
-    public $upps;
+    public Periode $periode;
+    public $programStudi;
     public $slug;
     public $table;
     public $fields;
@@ -23,28 +25,30 @@ class Create extends Component
     
     public function store()
     {
-        // $rules = [];
+        $rules = [];
         
-        // foreach ($this->fields as $field) {
-        //     $rules['form.' . $field['name']] = 'required';
-        // }
+        foreach ($this->fields as $field) {
+            $rules['form.' . $field['name']] = 'required';
+        }
         
-        // $this->validate($rules);
-
+        $this->validate($rules);
+        
         MonevRow::create([
-            'monev_table_id' => $this->table->id,
-            'upps_id'        => $this->upps->id,
-            'data'           => $this->form,
+            'periode_id'=> $this->periode->id,
+            'monev_table_id'=> $this->table->id,
+            'program_studi_id' => $this->programStudi->id,
+            'data' => $this->form
         ]);
         
-        return redirect()->route('dashboard.monev.show', ['upps' => $this->upps, 'slug' => $this->slug]);
+        return redirect()->route('dashboard.monev.show', ['upps' => $this->programStudi->upps, 'programStudi' => $this->programStudi, 'slug' => $this->slug, 'periode' => $this->periode]);
     }
     
     public function render()
     {
         return view('livewire.dashboard.monev.create', [
-            'upps' => $this->upps,
-            'slug' => $this->slug
+            'programStudi' => $this->programStudi,
+            'slug' => $this->slug,
+            'periode' => $this->periode,
         ]);
     }
 }

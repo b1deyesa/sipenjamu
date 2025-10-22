@@ -1,9 +1,15 @@
 <div class="option">
     @if ($this->setting_status == 'Ada')
-    
+
         {{-- Yes --}}
         <x-modal title="Pelaksanaan Document">
-            <x-slot:label><i class="fa-solid fa-pencil"></i></x-slot:label>
+            <x-slot:trigger>
+                @if ($standarYangDitetapkanInstitusiUpps->verification_status == 'rejected')
+                    <x-button class="button__info"><i class="fa-solid fa-hammer"></i></x-button>
+                @else
+                    <x-button class="button__info"><i class="fa-solid fa-pencil"></i></x-button>
+                @endif
+            </x-slot:trigger>
             <x-form wire="updateYes">
                 <x-input type="text" label="Description" wire="description" />
                 <hr class="modal__separator">
@@ -18,7 +24,9 @@
     @else
         {{-- No --}}
         <x-modal title="Pelaksanaan Document">
-            <x-slot:label><i class="fa-solid fa-pencil"></i></x-slot:label>
+            <x-slot:trigger>
+                <x-button class="button__info"><i class="fa-solid fa-pencil"></i></x-button>
+            </x-slot:trigger>
             <x-form wire="updateNo">
                 <x-input type="radio" wire="setting_status" :options="$statuses" />
                 @if ($this->setting_status == 'Lainnya')

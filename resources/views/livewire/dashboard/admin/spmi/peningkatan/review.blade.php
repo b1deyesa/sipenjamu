@@ -25,9 +25,9 @@
                         @if ($peningkatanUpps->setting_status == 'Ada')
                             <div class="table__action">
                                 {!! linkIcon($peningkatanUpps->link) !!}
-                                @if (!$peningkatanUpps->document_status)
+                                {{-- @if (!$peningkatanUpps->document_status)
                                     <x-button wire="updateDocument({{ $peningkatanUpps->upps_id }}, {{ true }})"><i class="fa-solid fa-check"></i></x-button>
-                                @endif
+                                @endif --}}
                             </div>
                         @else
                             <span style="white-space: nowrap">{{ $peningkatanUpps->setting_status }}</span>

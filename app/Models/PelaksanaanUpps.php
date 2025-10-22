@@ -2,12 +2,26 @@
 
 namespace App\Models;
 
+use App\Models\Upps;
+use App\Models\Pelaksanaan;
+use App\Models\Traits\HasPeriode;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PelaksanaanUpps extends Model
 {
-    protected $guarded = ['id'];
+    use HasFactory, HasPeriode;
+
+    protected $fillable = [
+        'periode_id',
+        'pelaksanaan_id',
+        'upps_id',
+        'setting_status',
+        'link',
+        'verification_status',
+        'document_status'
+    ];
     
     public function pelaksanaan(): BelongsTo
     {
@@ -22,7 +36,7 @@ class PelaksanaanUpps extends Model
     public function getDocumentStatusLabelAttribute(): string
     {
         return $this->document_status
-            ? 'Dokumen Ada'
-            : 'Dokumen Ditolak';
+            ? 'Sudah Upload Dokumen'
+            : 'Belum Upload Dokumen';
     }
 }

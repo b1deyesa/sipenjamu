@@ -15,9 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('upps_id')->constrained('upps')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('name');
-            $table->text('link')->nullable();
-            $table->enum('verification_status', ['pending', 'rejected', 'accepted'])->default('pending');
-            $table->boolean('document_status')->default(false);
             $table->timestamps();
         });
     }

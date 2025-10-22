@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Upps;
 use App\Models\Profil;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Periode;
+use App\Models\ProfilUpps;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class ProfilSeeder extends Seeder
 {
@@ -53,10 +56,23 @@ class ProfilSeeder extends Seeder
     public function run(): void
     {
         foreach ($this->profils as $profil) {
-            Profil::create([
+            $profil = Profil::create([
                 'name' => $profil['name'],
                 'type' => $profil['type']
             ]);
+            
+            $periodes = Periode::all();
+            $uppses = Upps::all();
+
+            foreach ($periodes as $periode) {
+                foreach ($uppses as $upps) {
+                    ProfilUpps::create([
+                        'profil_id' => $profil->id,
+                        'upps_id' => $upps->id,
+                        'periode_id' => $periode->id,
+                    ]);
+                }
+            }
         }
     }
 }

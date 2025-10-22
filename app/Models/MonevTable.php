@@ -13,6 +13,7 @@ class MonevTable extends Model
 
     protected $fillable = [
         'name',
+        'category',
         'slug',
     ];
 

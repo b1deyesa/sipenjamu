@@ -1,16 +1,19 @@
 @import 'reset';
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
-$color-1 : #27374D;
-$color-2 : #526D82;
+$color-1 : #1c283a;
+$color-2 : #456176;
 $color-3 : #9DB2BF;
 $color-4 : #DDE6ED;
 $color-5 : #ffe174;
+$color-6 : #019c09;
+$color-7 : #0a7baf;
+$color-8 : #c42a00;
 
-$color-warning : #fbe69c;
-$color-success : #76ff74;
-$color-danger : #ff7474;
-$color-primary : #8fd8ff;
+$color-warning   : #fbe69c;
+$color-success   : #76ff74;
+$color-danger    : #ff7474;
+$color-primary   : #8fd8ff;
 $color-secondary : #e5e5e5;
 
 .bg-warning {
@@ -67,16 +70,17 @@ body {
     flex-direction: column;
     gap: 1.8em;
     padding: 1.8em;
-    border-radius: .6em;
+    border-radius: 0em;
     box-shadow: 3px 3px 15px rgba(black, 5%);
     background: white;
 }
 %sidebar-white {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 1.5em;
     padding: 1em 0 1em 1em;
-    background: darken(white, 10%);
+    background: darken(white, 15%);
     
     .sidebar__toggle {
         display: flex;
@@ -93,6 +97,7 @@ body {
         display: flex;
         flex-direction: column;
         gap: .3em;
+        overflow-y: auto;
         
         .menu__dropdown {
             display: flex;
@@ -106,12 +111,14 @@ body {
                 gap: .7em;
                 min-height: 2.5em;
                 padding: .5em 1.5em .5em .7em;
-                border-radius: .3em 0 0 .3em;
+                border-radius: 0em 0 0 .3em;
                 cursor: pointer;
+                opacity: 80%;
                 background: transparent;
                 color: rgba(black, 80%);
                 
                 &.active {
+                    opacity: 100%;
                     background: darken(white, 15%);
                 }
                 
@@ -127,7 +134,7 @@ body {
                 span {
                     display: flex;
                     line-height: 1.5;
-                    width: 10em;
+                    width: 16em;
                     padding: 0 1.5em 0 0;
                 }
             }
@@ -140,12 +147,14 @@ body {
             gap: .7em;
             min-height: 2.5em;
             padding: .5em 1.5em .5em .7em;
-            border-radius: .3em 0 0 .3em;
+            opacity: 80%;
+            border-radius: 0em 0 0 .3em;
             color: rgba(black, 80%);
             
             &.active {
+                opacity: 100%;
                 box-shadow: 2px 2px 5px rgba(black, 5%);
-                background: darken(white, 5%);
+                background: darken(white, 6%);
             }
             
             i {
@@ -160,14 +169,13 @@ body {
             span {
                 display: flex;
                 line-height: 1.5;
-                width: 10em;
+                width: 16em;
                 padding: 0 1.5em 0 0;
             }
         }
         
         .menu__separator {
-            width: 80%;
-            margin-left: 5%;
+            width: 100%;
             border: .8px solid rgba(black, 10%);
         }
     }
@@ -193,23 +201,28 @@ body {
     }
     
     input {
+        min-height: 40px;
         width: 100%;
-        padding: .6em;
-        border-radius: .4em;
+        padding: .8em;
         border: 1px solid rgba(black, 30%);
         outline: none;
         
+        &[type="checkbox"],
+        &[type="radio"] {
+            min-height: fit-content;
+        }
+        
         &.error {
-            border-color: red;
+            border-color: red !important;
         }
     }
     
     .select {
         position: relative;
-        height: 2.5715em;
+        min-height: 40px;
         width: 100%;
         padding: .6em;
-        border-radius: .4em;
+        border-radius: 0em;
         border: 1px solid rgba(black, 30%);
         outline: none;
         
@@ -237,18 +250,19 @@ body {
             display: flex;
             flex-direction: column;
             margin: .5em 0 0;
+            min-width: 10em;
             padding: .6em;
             overflow-y: scroll;
             z-index: 10;
-            border-radius: .4em;
-            background: $color-4;
+            box-shadow: 2px 2px 10px rgba(black, 10%);
+            background: white;
             
             li {
                 padding: .3em .8em;
                 cursor: pointer;
                 
                 &:hover {
-                    border-radius: .4em;
+                    border-radius: 0em;
                     background: rgba(black, 5%);
                 }
             }
@@ -308,9 +322,9 @@ body {
     font-size: 1rem;
     text-align: center;
     gap: .6em;
-    width: fit-content;
-    padding: .6em 1em;
-    border-radius: .4em;
+    min-height: 30px !important;
+    min-width: 6em;
+    padding: .5em 1em;
     border: 1px solid $color-2;
     background: $color-2;
     color: white;
@@ -319,10 +333,28 @@ body {
         background: transparent;
         color: $color-2;
     }
+    
+    &.button__success {
+        border-color: $color-6;
+        background: $color-6;
+    }
+    &.button__info {
+        border-color: $color-7;
+        background: $color-7;
+    }
+    &.button__danger {
+        border-color: $color-8;
+        background: $color-8;
+    }
 }
 .table {
     font-size: .9em;
     width: 100%;
+    background: white;
+    
+    tr:has(td:hover) {
+        background: rgba(black, 3%);
+    }
     
     th {
         font-weight: bold;
@@ -333,11 +365,12 @@ body {
         background: $color-3;
         color: white;
     }
+    
     td {
         line-height: 1.5;
-        padding: .8em 1em;
+        padding: .6em 1em;
         vertical-align: middle;
-        border-bottom: .8px solid rgba(black, 20%);
+        border-bottom: .8px dashed rgba(black, 20%);
         
         .table__action {
             display: flex;
@@ -348,6 +381,9 @@ body {
             
             .button {
                 font-size: .8rem;
+                min-height: fit-content !important;
+                min-width: 2.5em;
+                padding: .5em;
             }
         }
         
@@ -395,9 +431,9 @@ body {
         gap: 1.5em;
         width: 100%;
         padding: 1.5em;
-        border-radius: .6em;
+        border-radius: 0em;
         box-shadow: 3px 3px 15px rgba(black, 5%);
-        background: white;
+        background: rgba(white, 93%);
         
         .modal__header {
             display: flex;
@@ -430,6 +466,8 @@ body {
         
         .button {
             font-size: 1rem !important;
+            min-height: 30px !important;
+            min-width: 6em !important;
         }
         
         .modal__bottom {
@@ -440,6 +478,7 @@ body {
         }
         
         .table {
+            background: transparent;
             
             th {
                 padding: .4em 1em;
@@ -452,7 +491,7 @@ body {
                     
                     .button {
                         padding: .4em;
-                        min-width: 2.2em;
+                        min-width: 2.5em !important;
                     }
                 }
             }
@@ -462,9 +501,13 @@ body {
             font-size: .9em;
             line-height: 1.5em;
             padding: .8em 1.2em;
-            border-radius: .4em;
+            border-radius: 0em;
             background: #f5ecca;
             color: #75683d;
+        }
+        
+        p {
+            line-height: 1.6;
         }
     }
 }
@@ -495,20 +538,14 @@ body {
         display: flex;
         justify-content: end;
         align-self: end;
-        gap: .5em;
+        gap: .8em;
         margin: 1em 0 0;
         width: 100%;
-        
     }
     
     .input {
         width: 100% !important;
     }
-}
-.link-icon {
-    padding: .4em;
-    border-radius: .4em;
-    color: $color-1;
 }
 .badge {
     font-size: .9em;
@@ -538,7 +575,7 @@ body {
     justify-content: center;
     gap: 1em;
     padding: 4em;
-    border-radius: .6em;
+    border-radius: 0em;
     background:  radial-gradient(rgba(black, 2%), rgba(black, 10%));
     
     &__title {
@@ -551,6 +588,26 @@ body {
         width: 16em;
     }
 }
+.alert {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    bottom : 0;
+    right: 0;
+    left: 0;
+    padding: 3em;
+    
+    &__container {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        padding: 1em 1.5em;
+        background: white;
+        width: 100%;
+        max-width: 20em;
+    }
+}
 
 
 // Layout
@@ -558,16 +615,29 @@ body {
 .two-section {
     display: flex;
     flex-direction: column;
-    gap: 1em;
+    gap: 0 !important;
     
     &__header {
+        position: relative;
         display: flex;
         align-items: center;
         gap: 1.8em;
-        padding: 2em; 
-        border-radius: .6em;
+        padding: 2em;
+        min-height: 8em;
+        border-radius: 0em;
+        overflow: hidden;
         box-shadow: 3px 3px 15px rgba(black, 5%);
-        background: white;
+        background: $color-2;
+        
+        > img {
+            position: absolute;
+            object-fit: cover;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            height: 180%;
+            opacity: 20%;
+        }
         
         .header__icon {
             font-size: 2.8em;
@@ -577,15 +647,16 @@ body {
         .header__right {
             display: flex;
             flex-direction: column;
-            gap: .8em;
+            gap: .5em;
             
             .header__title {
                 font-size: 1.4em;
                 font-weight: bold;
+                color: white;
             }
             
             .header__subtitle {
-                color: rgba(black, 50%);
+                color: rgba(white, 50%);
             }
         }
     }
@@ -595,7 +666,7 @@ body {
         flex-direction: column;
         gap: 1.5em;
         padding: 2em; 
-        border-radius: .6em;
+        border-radius: 0em;
         box-shadow: 3px 3px 15px rgba(black, 5%);
         background: white;
         
@@ -604,6 +675,16 @@ body {
             justify-content: space-between;
             align-items: center;
             margin: 0 0 1.2em;
+            
+            .feature__left {
+                display: flex;
+                gap: .5em;
+            }
+            
+            .feature__right {
+                display: flex;
+                gap: .5em;
+            }
             
             .input {
                 width: 22em;
@@ -661,11 +742,13 @@ body {
                 text-decoration: none;
                 gap: .7em;
                 padding: .5em;
-                border-radius: .3em;
+                border-radius: 0em;
+                opacity: 80%;
                 color: rgba(white, 80%);
                 min-height: 2.5em;
                 
                 &.active {
+                    opacity: 100%;
                     box-shadow: 2px 2px 5px rgba(black, 10%);
                     background: rgba(white, 20%);
                     color: rgba(white, 100%);
@@ -711,257 +794,203 @@ body {
             .spmi__content {
                 display: flex;
                 flex-direction: column;
-                gap: 2em;
-                height: 100vh;
                 width: 100%;
-                padding: 2em;
-                overflow: scroll;
-                background: darken(white, 5%);
                 
-                &.home {
+                .content__header {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 1em;
+                    padding: 1.5em 3em; 
+                    box-shadow: 3px 3px 15px rgba(black, 5%);
+                    background: $color-1;
                     
-                    .home__header {
-                        position: relative;
-                        display: flex;
-                        flex-direction: column;
-                        gap: 1em;
-                        padding: 3em; 
-                        // overflow: hidden;
-                        border-radius: .6em;
-                        box-shadow: 3px 3px 15px rgba(black, 5%);
-                        background: linear-gradient(90deg, $color-1, rgba($color-1, 50%));
-                        
-                        .header__title {
-                            font-size: 2em;
-                            font-weight: bold;
-                            color: white;
-                        }
-                        
-                        .header__subtitle {
-                            font-size: 1.1em;
-                            font-weight: 400;
-                            text-transform: uppercase;
-                            letter-spacing: .2em;
-                            color: rgba(white, 60%);
-                        }
-                        
-                        .header__user {
-                            margin: 1.2em 0 0;
-                            color: white;
-                        }
+                    .header__title {
+                        font-size: 1.3em;
+                        font-weight: bold;
+                        color: white;
                     }
                     
-                    .home__module {
-                        position: relative;
+                    .header__select {
                         display: flex;
-                        flex-direction: column;
-                        gap: 1.5em;
-                        padding: 0 0 10em;
+                        gap: .8em;
+                        .input {
+                            .select {
+                                border-color: rgba(white, 20%);
+                                background: rgba(white, 10%);
+                                select {
+                                    color: white;
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                .content__container {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 3em;
+                    height: 100vh;
+                    width: 100%;
+                    padding: 3em;
+                    overflow: scroll;
+                    background: darken(white, 6%);
+                    
+                    &.home {
                         
-                        .module__title {
-                            @extend %heading-3;
+                        .home__module {
+                            position: relative;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 1.5em;
+                            padding: 0 0 10em;
+                            
+                            .module__title {
+                                @extend %heading-3;
+                            }
+                            
+                            .module__list {
+                                position: absolute;
+                                display: flex;
+                                align-items: center;
+                                top: 4em;
+                                gap: 2em;
+                                width: 100%;
+                                overflow: hidden;
+                                
+                                &::after {
+                                    content: '';
+                                    position: absolute;
+                                    top: 0;
+                                    right: 0;
+                                    bottom: 0;
+                                    left: 0;
+                                    pointer-events: none;
+                                    background: linear-gradient(90deg, darken(white, 5%) 5%, transparent 15% 85%, darken(white, 5%) 95%);
+                                }
+                            
+                                .list__content {
+                                    position: relative;
+                                    display: flex;
+                                    width: 100%;
+                                    gap: 1em;
+                                    overflow: hidden;
+                                    scroll-behavior: auto;
+                                    
+                                    .list__item {
+                                        display: flex;
+                                        align-items: center;
+                                        text-decoration: none;
+                                        gap: 1em;
+                                        width: 16em;
+                                        padding: 1em 2em 1em 1em;
+                                        border-radius: 0em;
+                                        box-shadow: 2px 2px 10px rgba(black, 5%);
+                                        background: white;
+                                        flex: 0 0 auto;
+                            
+                                        .item__icon {
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                            aspect-ratio: 1/1;
+                                            min-width: 4em;
+                                            padding: 1em;
+                                            border-radius: 0em;
+                                            background: $color-4;
+                            
+                                            i {
+                                                font-size: 2.2em;
+                                                color: $color-2;
+                                            }
+                                        }
+                            
+                                        .item__right {
+                                            display: flex;
+                                            flex-direction: column;
+                                            gap: .7em;
+                            
+                                            .item__progress {
+                                                font-size: .85em;
+                                                color: rgba(black, 50%);
+                                            }
+                            
+                                            .item__title {
+                                                font-size: 1.1em;
+                                                font-weight: bold;
+                                                color: rgba(black, 80%);
+                                            }
+                                        }
+                                    }
+                                }
+                            
+                                .list__arrow {
+                                    cursor: pointer;
+                                    padding: .5em 1em;
+                                    border: none;
+                                    background: darken(white, 12%);
+                                    border-radius: 0em;
+                                    z-index: 2;
+                                }
+                            }
                         }
                         
-                        .module__list {
-                            position: absolute;
+                        .home__info {
                             display: flex;
-                            align-items: center;
-                            top: 4em;
-                            gap: 2em;
-                            width: 100%;
-                            overflow: hidden;
+                            flex-direction: column;
+                            gap: 1.5em;
                             
-                            &::after {
-                                content: '';
-                                position: absolute;
-                                top: 0;
-                                right: 0;
-                                bottom: 0;
-                                left: 0;
-                                pointer-events: none;
-                                background: linear-gradient(90deg, darken(white, 5%) 5%, transparent 15% 85%, darken(white, 5%) 95%);
+                            .info__title {
+                                @extend %heading-3;
                             }
+                        }
                         
-                            .list__content {
+                        .home__profile {
+                            position: relative;
+                            
+                            .profile__background {
+                                position: absolute;
+                                object-fit: cover;
+                                inset: 0;
+                                height: 100%;
+                                width: 100%;
+                                z-index: 0;
+                                filter: grayscale(1);
+                                border-radius: 0em;
+                            }
+                            
+                            .profile__container {
                                 position: relative;
                                 display: flex;
-                                width: 100%;
-                                gap: 1em;
+                                gap: 2em;
+                                padding: 2em;
                                 overflow: hidden;
-                                scroll-behavior: auto;
+                                border-radius: 0em;
+                                box-shadow: 3px 3px 15px rgba(black, 5%);
+                                opacity: 95%;
                                 
-                                .list__item {
+                                .profile__left {
                                     display: flex;
+                                    flex-direction: column;
                                     align-items: center;
-                                    text-decoration: none;
-                                    gap: 1em;
-                                    width: 16em;
-                                    padding: 1em 2em 1em 1em;
-                                    border-radius: .6em;
-                                    box-shadow: 2px 2px 10px rgba(black, 5%);
-                                    background: white;
-                                    flex: 0 0 auto;
-                        
-                                    .item__icon {
+                                    gap: 3em;
+                                    width: 50%;
+                                    padding: 2em;        
+                                    
+                                    .profile__avatar {
                                         display: flex;
                                         align-items: center;
                                         justify-content: center;
                                         aspect-ratio: 1/1;
-                                        min-width: 4em;
-                                        padding: 1em;
-                                        border-radius: .6em;
-                                        background: $color-4;
-                        
-                                        i {
-                                            font-size: 2.2em;
-                                            color: $color-2;
-                                        }
-                                    }
-                        
-                                    .item__right {
-                                        display: flex;
-                                        flex-direction: column;
-                                        gap: .7em;
-                        
-                                        .item__progress {
-                                            font-size: .85em;
-                                            color: rgba(black, 50%);
-                                        }
-                        
-                                        .item__title {
-                                            font-size: 1.1em;
-                                            font-weight: bold;
-                                            color: rgba(black, 80%);
-                                        }
-                                    }
-                                }
-                            }
-                        
-                            .list__arrow {
-                                cursor: pointer;
-                                padding: .5em 1em;
-                                border: none;
-                                background: darken(white, 12%);
-                                border-radius: .5em;
-                                z-index: 2;
-                            }
-                        }
-                    }
-                    
-                    .home__info {
-                        display: flex;
-                        flex-direction: column;
-                        gap: 1.5em;
-                        
-                        .info__title {
-                            @extend %heading-3;
-                        }
-                    }
-                    
-                    .home__profile {
-                        position: relative;
-                        
-                        .profile__background {
-                            position: absolute;
-                            object-fit: cover;
-                            inset: 0;
-                            height: 100%;
-                            width: 100%;
-                            z-index: 0;
-                            filter: grayscale(1);
-                            border-radius: .6em;
-                        }
-                        
-                        .profile__container {
-                            position: relative;
-                            display: flex;
-                            gap: 2em;
-                            padding: 2em;
-                            overflow: hidden;
-                            border-radius: .6em;
-                            box-shadow: 3px 3px 15px rgba(black, 5%);
-                            background: linear-gradient(-100deg, $color-1 20%, rgba($color-1, 95%), $color-1);
-                            
-                            .profile__left {
-                                display: flex;
-                                flex-direction: column;
-                                align-items: center;
-                                gap: 3em;
-                                width: 50%;
-                                padding: 2em;        
-                                
-                                .profile__avatar {
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                    aspect-ratio: 1/1;
-                                    width: 12em;
-                                    padding: 2em;
-                                    border-radius: 50%;
-                                    background: white;
-                                    
-                                    img {
-                                        width: 100%;
-                                    }
-                                }
-                                
-                                .profile__list {
-                                    display: flex;
-                                    flex-direction: column;
-                                    font-size: .95em;
-                                    gap: 1.2em;
-                                    width: 100%;
-                                    
-                                    .list__item {
-                                        display: flex;
-                                        align-items: center;
-                                        gap: 1em;
-                                        color: white;
+                                        width: 12em;
+                                        padding: 2em;
+                                        border-radius: 50%;
+                                        background: white;
                                         
-                                        .item__label {
-                                            line-height: 1.5;
-                                            min-width: 14em;
-                                            max-width: 14em;
-                                        }
-                                        
-                                        .item__value {
+                                        img {
                                             width: 100%;
-                                            .input {
-                                                width: 100%;
-                                                input {
-                                                    font-size: 1em;
-                                                    width: 100%;
-                                                    padding: .3em .5em;
-                                                    outline: none;
-                                                    border-radius: .2em;
-                                                    border: 1px solid rgba(white, 15%);
-                                                    background: transparent;
-                                                    color: white;
-                                                }
-                                            }
                                         }
-                                    }
-                                }
-                            }
-                            
-                            .profile__right {
-                                display: flex;
-                                flex-direction: column;
-                                gap: 2em;
-                                width: 50%;
-                                
-                                .right__top {
-                                    display: flex;
-                                    flex-direction: column;
-                                    gap: 2em;
-                                    padding: 2em;
-                                    border-radius: .5em;
-                                    box-shadow: 3px 3px 10px rgba(black, 15%);
-                                    background: white;
-                                    
-                                    .profile__title {
-                                        @extend %heading-3;
-                                        color: $color-1;
                                     }
                                     
                                     .profile__list {
@@ -969,16 +998,18 @@ body {
                                         flex-direction: column;
                                         font-size: .95em;
                                         gap: 1.2em;
+                                        width: 100%;
                                         
                                         .list__item {
                                             display: flex;
                                             align-items: center;
                                             gap: 1em;
-                                            color: rgba($color-1, 80%);
+                                            color: white;
                                             
                                             .item__label {
                                                 line-height: 1.5;
-                                                width: 8em;
+                                                min-width: 14em;
+                                                max-width: 14em;
                                             }
                                             
                                             .item__value {
@@ -990,10 +1021,10 @@ body {
                                                         width: 100%;
                                                         padding: .3em .5em;
                                                         outline: none;
-                                                        border-radius: .2em;
-                                                        border: 1px solid rgba(black, 10%);
+                                                        border-radius: 0em;
+                                                        border: 1px solid rgba(white, 15%);
                                                         background: transparent;
-                                                        color: $color-1;
+                                                        color: white;
                                                     }
                                                 }
                                             }
@@ -1001,126 +1032,149 @@ body {
                                     }
                                 }
                                 
-                                .right__bottom {
+                                .profile__right {
                                     display: flex;
                                     flex-direction: column;
                                     gap: 2em;
-                                    padding: 2em;
-                                    border-radius: .5em;
-                                    box-shadow: 3px 3px 10px rgba(black, 15%);
-                                    background: white;
+                                    width: 50%;
                                     
-                                    .profile__title {
-                                        @extend %heading-3;
-                                        color: $color-1;
-                                    }
-                                    
-                                    .profile__list {
+                                    .right__top {
                                         display: flex;
                                         flex-direction: column;
-                                        font-size: .95em;
-                                        gap: 1.2em;
+                                        gap: 2em;
+                                        padding: 2em;
+                                        border-radius: 0em;
+                                        box-shadow: 3px 3px 10px rgba(black, 15%);
+                                        background: white;
                                         
-                                        .list__item {
+                                        .profile__title {
+                                            @extend %heading-3;
+                                            color: $color-1;
+                                        }
+                                        
+                                        .profile__list {
                                             display: flex;
-                                            align-items: center;
-                                            gap: 1em;
-                                            color: rgba($color-1, 80%);
+                                            flex-direction: column;
+                                            font-size: .95em;
+                                            gap: 1.2em;
                                             
-                                            .item__label {
-                                                line-height: 1.5;
-                                                width: 8em;
-                                            }
-                                            
-                                            .item__value {
-                                                width: 100%;
-                                                .input {
+                                            .list__item {
+                                                display: flex;
+                                                align-items: center;
+                                                gap: 1em;
+                                                color: rgba($color-1, 80%);
+                                                
+                                                .item__label {
+                                                    line-height: 1.5;
+                                                    width: 8em;
+                                                }
+                                                
+                                                .item__value {
                                                     width: 100%;
-                                                    input {
-                                                        font-size: 1em;
+                                                    .input {
                                                         width: 100%;
-                                                        padding: .3em .5em;
-                                                        outline: none;
-                                                        border-radius: .2em;
-                                                        border: 1px solid rgba(black, 10%);
-                                                        background: transparent;
-                                                        color: $color-1;
+                                                        input {
+                                                            font-size: 1em;
+                                                            width: 100%;
+                                                            padding: .3em .5em;
+                                                            outline: none;
+                                                            border-radius: 0em;
+                                                            border: 1px solid rgba(black, 10%);
+                                                            background: transparent;
+                                                            color: $color-1;
+                                                        }
                                                     }
                                                 }
                                             }
                                         }
                                     }
                                     
-                                    .profile__chart {
-                                        margin: .5em 0 0;
+                                    .right__bottom {
+                                        display: flex;
+                                        flex-direction: column;
+                                        gap: 2em;
+                                        padding: 2em;
+                                        border-radius: 0em;
+                                        box-shadow: 3px 3px 10px rgba(black, 15%);
+                                        background: white;
+                                        
+                                        .profile__title {
+                                            @extend %heading-3;
+                                            color: $color-1;
+                                        }
+                                        
+                                        .profile__list {
+                                            display: flex;
+                                            flex-direction: column;
+                                            font-size: .95em;
+                                            gap: 1.2em;
+                                            
+                                            .list__item {
+                                                display: flex;
+                                                align-items: center;
+                                                gap: 1em;
+                                                color: rgba($color-1, 80%);
+                                                
+                                                .item__label {
+                                                    line-height: 1.5;
+                                                    width: 8em;
+                                                }
+                                                
+                                                .item__value {
+                                                    width: 100%;
+                                                    .input {
+                                                        width: 100%;
+                                                        input {
+                                                            font-size: 1em;
+                                                            width: 100%;
+                                                            padding: .3em .5em;
+                                                            outline: none;
+                                                            border-radius: 0em;
+                                                            border: 1px solid rgba(black, 10%);
+                                                            background: transparent;
+                                                            color: $color-1;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        
+                                        .profile__chart {
+                                            margin: .5em 0 0;
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                    
-                    .home__statistics {
-                        @extend %card-white;
                         
-                        .statistics__number {
-                            display: flex;
-                            align-items: center;
-                            gap: 2em;
+                        .home__statistics {
+                            @extend %card-white;
                             
-                            .statistics__left {
+                            .statistics__number {
                                 display: flex;
-                                flex-direction: column;
-                                width: 30%;
+                                align-items: center;
+                                gap: 2em;
                                 
-                                .statistics__item {
+                                .statistics__left {
                                     display: flex;
                                     flex-direction: column;
-                                    align-items: center;
-                                    justify-content: center;
-                                    gap: .8em;
+                                    width: 30%;
                                     
-                                    i {
-                                        font-size: 3.5em;
-                                        color: $color-2;
-                                    }
-                                    
-                                    .item__count {
-                                        font-size: 1.8em;
-                                        font-weight: bold;
-                                    }
-                                    
-                                    .item__title {
-                                        font-size: 1.1em;
-                                        color: rgba(black, 60%);
-                                    }
-                                }
-                            }
-                            
-                            .statistics__right {
-                                display: flex;
-                                flex-direction: column;
-                                width: 70%;
-                                
-                                .statistics__list {
-                                    display: grid;
-                                    grid-template-columns: repeat(3, 1fr);
-                                    gap: 1em;
-                                    
-                                    .list__item {
+                                    .statistics__item {
                                         display: flex;
                                         flex-direction: column;
                                         align-items: center;
                                         justify-content: center;
-                                        gap: 1em;
-                                        padding: 1em;
-                                        border-radius: .6em;
-                                        box-shadow: 3px 3px 15px rgba(black, 5%);
-                                        background: white;                
+                                        gap: .8em;
+                                        
+                                        i {
+                                            font-size: 3.5em;
+                                            color: $color-2;
+                                        }
                                         
                                         .item__count {
                                             font-size: 1.8em;
                                             font-weight: bold;
-                                            color: $color-2;
                                         }
                                         
                                         .item__title {
@@ -1129,203 +1183,243 @@ body {
                                         }
                                     }
                                 }
+                                
+                                .statistics__right {
+                                    display: flex;
+                                    flex-direction: column;
+                                    width: 70%;
+                                    
+                                    .statistics__list {
+                                        display: grid;
+                                        grid-template-columns: repeat(3, 1fr);
+                                        gap: 1em;
+                                        
+                                        .list__item {
+                                            display: flex;
+                                            flex-direction: column;
+                                            align-items: center;
+                                            justify-content: center;
+                                            gap: 1em;
+                                            padding: 1em;
+                                            border-radius: 0em;
+                                            box-shadow: 3px 3px 15px rgba(black, 5%);
+                                            background: white;                
+                                            
+                                            .item__count {
+                                                font-size: 1.8em;
+                                                font-weight: bold;
+                                                color: $color-2;
+                                            }
+                                            
+                                            .item__title {
+                                                font-size: 1.1em;
+                                                color: rgba(black, 60%);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            .statistics__chart {
+                                display: flex;
+                                flex-direction: column;
                             }
                         }
                         
-                        .statistics__chart {
-                            display: flex;
-                            flex-direction: column;
-                        }
-                    }
-                    
-                    .home__program-studi {
-                        @extend %card-white;
-                            
-                        .program-studi__header {
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                            gap: 1em;
-                            
-                            .header__title {
-                                @extend %heading-3;
-                                text-align: center;
-                            }
-                            
-                            .header__description {
-                                text-align: center;
-                                line-height: 1.5;
-                                max-width: 40em;
-                                color: rgba(black, 60%);
+                        .home__program-studi {
+                            @extend %card-white;
+                                
+                            .program-studi__header {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                gap: 1em;
+                                
+                                .header__title {
+                                    @extend %heading-3;
+                                    text-align: center;
+                                }
+                                
+                                .header__description {
+                                    text-align: center;
+                                    line-height: 1.5;
+                                    max-width: 40em;
+                                    color: rgba(black, 60%);
+                                }
                             }
                         }
                     }
-                }
-                
-                &.profil-upps {
-                    align-items: center;
                     
-                    .form {
-                        width: 100%;
-                        max-width: 30em;
-                    }
-                }
-                
-                .penetapan {
-                    
-                    &.standar-lain {
+                    &.profil {
+                        align-items: center;
                         
-                        .standar-lain__button {
+                        .form {
+                            width: 100%;
+                            max-width: 30em;
+                        }
+                    }
+                    
+                    .penetapan {
+                        
+                        &.standar-lain {
+                            
+                            .standar-lain__button {
+                                align-self: flex-end;
+                            }
+                        }
+                    }
+                    
+                    .pelaksanaan {
+                        
+                        .option {
+                            display: flex;
+                            flex-direction: column;
+                            gap: .3em;
+                            
+                            &__item {
+                                display: flex;
+                                align-items: center;
+                                gap: .8em;
+                                cursor: pointer;
+                                
+                                .item__box {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    height: 1.2em;
+                                    width: 1.2em;
+                                    border-radius: 50%;
+                                    border: 1px solid rgba(black, 60%);
+                                    
+                                    .check {
+                                        display: flex;
+                                        height: .7em;
+                                        width: .7em;
+                                        border-radius: 50%;
+                                        background: $color-2;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    .peningkatan {
+                        
+                        .option {
+                            display: flex;
+                            flex-direction: column;
+                            gap: .3em;
+                            
+                            &__item {
+                                display: flex;
+                                align-items: center;
+                                gap: .8em;
+                                cursor: pointer;
+                                
+                                .item__box {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    height: 1.2em;
+                                    width: 1.2em;
+                                    border-radius: 50%;
+                                    border: 1px solid rgba(black, 60%);
+                                    
+                                    .check {
+                                        display: flex;
+                                        height: .7em;
+                                        width: .7em;
+                                        border-radius: 50%;
+                                        background: $color-2;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    .standar-yang-ditetapkan-institusi {
+                        
+                        .option {
+                            display: flex;
+                            flex-direction: column;
+                            gap: .3em;
+                            
+                            &__item {
+                                display: flex;
+                                align-items: center;
+                                gap: .8em;
+                                cursor: pointer;
+                                
+                                .item__box {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    height: 1.2em;
+                                    width: 1.2em;
+                                    border-radius: 50%;
+                                    border: 1px solid rgba(black, 60%);
+                                    
+                                    .check {
+                                        display: flex;
+                                        height: .7em;
+                                        width: .7em;
+                                        border-radius: 50%;
+                                        background: $color-2;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    .evaluasi {
+                        
+                        &__navigation {
+                            display: flex;
+                            gap: 2em;
+                            margin: 0 0 1em;
+                            border-bottom: .8px solid rgba(black, 20%);
+                            
+                            .navigation__item {
+                                padding: 0 0 1.5em;
+                                
+                                &.active {
+                                    border-bottom: 1.2px solid $color-2;
+                                }
+                            }
+                        }
+                        
+                        &__content {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 1.5em;
+                            
+                            &.evaluasi-lain {
+                                
+                                .evaluasi-lain__button {
+                                    align-self: flex-end;
+                                }
+                            }
+                        }
+                    }
+                    
+                    .pengendalian {
+                        
+                        .pengendalian__button {
                             align-self: flex-end;
                         }
                     }
                 }
                 
-                .pelaksanaan {
-                    
-                    .option {
-                        display: flex;
-                        flex-direction: column;
-                        gap: .3em;
-                        
-                        &__item {
-                            display: flex;
-                            align-items: center;
-                            gap: .8em;
-                            cursor: pointer;
-                            
-                            .item__box {
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                height: 1.2em;
-                                width: 1.2em;
-                                border-radius: 50%;
-                                border: 1px solid rgba(black, 60%);
-                                
-                                .check {
-                                    display: flex;
-                                    height: .7em;
-                                    width: .7em;
-                                    border-radius: 50%;
-                                    background: $color-2;
-                                }
-                            }
-                        }
-                    }
-                }
-                
-                .peningkatan {
-                    
-                    .option {
-                        display: flex;
-                        flex-direction: column;
-                        gap: .3em;
-                        
-                        &__item {
-                            display: flex;
-                            align-items: center;
-                            gap: .8em;
-                            cursor: pointer;
-                            
-                            .item__box {
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                height: 1.2em;
-                                width: 1.2em;
-                                border-radius: 50%;
-                                border: 1px solid rgba(black, 60%);
-                                
-                                .check {
-                                    display: flex;
-                                    height: .7em;
-                                    width: .7em;
-                                    border-radius: 50%;
-                                    background: $color-2;
-                                }
-                            }
-                        }
-                    }
-                }
-                
-                .standar-yang-ditetapkan-institusi {
-                    
-                    .option {
-                        display: flex;
-                        flex-direction: column;
-                        gap: .3em;
-                        
-                        &__item {
-                            display: flex;
-                            align-items: center;
-                            gap: .8em;
-                            cursor: pointer;
-                            
-                            .item__box {
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                height: 1.2em;
-                                width: 1.2em;
-                                border-radius: 50%;
-                                border: 1px solid rgba(black, 60%);
-                                
-                                .check {
-                                    display: flex;
-                                    height: .7em;
-                                    width: .7em;
-                                    border-radius: 50%;
-                                    background: $color-2;
-                                }
-                            }
-                        }
-                    }
-                }
-                
-                .evaluasi {
-                    
-                    &__navigation {
-                        display: flex;
-                        gap: 2em;
-                        margin: 0 0 1em;
-                        border-bottom: .8px solid rgba(black, 20%);
-                        
-                        .navigation__item {
-                            padding: 0 0 1.5em;
-                            
-                            &.active {
-                                border-bottom: 1.2px solid $color-2;
-                            }
-                        }
-                    }
-                    
-                    &__content {
-                        display: flex;
-                        flex-direction: column;
-                        gap: 1.5em;
-                        
-                        &.evaluasi-lain {
-                            
-                            .evaluasi-lain__button {
-                                align-self: flex-end;
-                            }
-                        }
-                    }
-                }
-                
-                .pengendalian {
-                    
-                    .pengendalian__button {
-                        align-self: flex-end;
-                    }
-                }
             }
         }
         
         &.monev {
             display: flex;
             width: 100%;
+            
+            .monev__sidebar {
+                @extend %sidebar-white;
+            }
             
             .monev__container {
                 display: flex;
@@ -1335,11 +1429,38 @@ body {
                 width: 100%;
                 padding: 2em;
                 overflow: scroll;
-                background: darken(white, 5%);
+                background: darken(white, 6%);
 
+                .monev__redirect {
+                    display: flex;
+                    gap: .5em;
+                    width: fit-content;
+                    // padding: .3em .8em;
+                    color: $color-3;
+                }
+                
                 &.index {
                     display: flex;
                     flex-direction: column;
+                    
+                    .index__header {
+                        display: flex;
+                        flex-direction: column;
+                        gap: .2em;
+                        
+                        .header__title {
+                            font-size: 1.4em;
+                            font-weight: bold;
+                            color: $color-1;
+                        }
+                    }
+                    
+                    .index__title {
+                        font-weight: 500;
+                        font-size: 1.1em;
+                        margin: 1em 0 0;
+                        color: $color-2;
+                    }
                     
                     .index__list {
                         display: flex;
@@ -1351,21 +1472,38 @@ body {
                             align-items: center;
                             justify-content: space-between;
                             padding: .8em;
-                            border-radius: .4em;
                             border: 1px solid rgba(black, 15%);
+                            background: white;
                             
                             .item__text {
                                 display: flex;
                                 flex-direction: column;
-                                gap: .2em;
+                                gap: .5em;
+                                margin:  0 0 0 .5em;
+                                
+                                .text__title {
+                                    font-size: 1em;
+                                    font-weight: 500;
+                                }
+                                
+                                .text__subtitle {
+                                    font-size: .8em;
+                                    color: $color-3;
+                                }
                             }
                             
-                            a {
+                            a.button {
                                 font-size: .9em;
+                                min-height: fit-content;
+                                min-width: 5em;
                                 padding: .6em 1em;
-                                border-radius: .3em;
                                 background: $color-2;
                                 color: white;
+                            }
+                            
+                            .item__action {
+                                display: flex;
+                                gap: .5em;
                             }
                         }
                     }
@@ -1384,12 +1522,110 @@ body {
             .admin__content {
                 display: flex;
                 flex-direction: column;
-                gap: 2em;
                 height: 100vh;
                 width: 100%;
-                padding: 2em;
+                padding: 3em;
                 overflow: scroll;
-                background: darken(white, 5%);
+                background: darken(white, 6%);
+            }
+        }
+    }
+}
+.auth {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: $color-1;
+    
+    > img {
+        position: absolute;
+        object-fit: cover;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: -1;
+        opacity: 10%;
+        filter: grayscale(1);
+    }
+    
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: linear-gradient(rgba($color-1, 80%), transparent, rgba($color-1, 90%));
+        z-index: -1;
+    }
+    
+    &__container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
+        width: 100%;
+        max-width: 400px;
+        padding: 5em 2em 2em;
+        background: rgba(white, 93%);
+        
+        .auth__logo {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            align-self: center;
+            justify-content: center;
+            aspect-ratio: 1/1;
+            top: -4em;
+            width: 8em;
+            padding: 1em;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 3px 3px 10px rgba(black, 10%);
+            
+            img {
+                width: 100%;
+            }
+        }
+        
+        .auth__title {
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+        
+        .form {
+            gap: 1em;
+            
+            &__navigation {
+                display: flex;
+                justify-content: space-between;
+                margin: .5em 0;
+                
+                label {
+                    display: flex;
+                    align-items: center;
+                    line-height: 0;
+                    gap: .5em;
+                    cursor: pointer;
+                }
+                
+                a {
+                    color: $color-2;
+                }
+            }
+            
+            &__bottom {
+                flex-direction: column;
+                margin: 0;
+                
+                .button {
+                    width: 100%;
+                }
             }
         }
     }

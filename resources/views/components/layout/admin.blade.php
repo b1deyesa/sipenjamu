@@ -9,6 +9,7 @@
         
         {{-- Two Section Header --}}
         <div class="two-section__header">
+            <img src="{{ asset('assets/img/ambon-island.png') }}">
             <i class="header__icon fa-solid fa-clipboard-list"></i>
             <div class="header__right">
                 <h1 class="header__title">{{ $title }}</h1>

@@ -1,10 +1,22 @@
 <x-crud-table 
     :items="$standar_lains" 
-    :searchField="[
-        'Setting Name' => 'name',
-        'UPPS' => 'upps.name',
-        'Link' => 'link',
+    :search-field="[
+        [
+            'label' => 'Setting Name', 
+            'name' => 'name'
+        ],
+        [
+            'label' => 'UPPS', 
+            'name' => 'upps.name'
+        ],
+        [
+            'label' => 'Link', 
+            'name' => 'standarLainUpps.link', 
+            'type' => 'linkIcon',
+            'align' => 'center'
+        ],
     ]"
-    createComponent="dashboard.admin.spmi.standar-lain.create"
-    reviewComponentPrefix="dashboard.admin.spmi.standar-lain.verification-status"
-></x-crud-table>
+    create-component="dashboard.admin.spmi.standar-lain.create"
+    delete-component-prefix="dashboard.admin.spmi.standar-lain.delete"
+    review-component-prefix="dashboard.admin.spmi.standar-lain.verification-status"
+/>

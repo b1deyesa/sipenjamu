@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Dashboard\Spmi\StandarYangDitetapkanInstitusi;
 
+use App\Models\Periode;
 use App\Models\Upps;
 use Livewire\Component;
 use App\Models\StandarYangDitetapkanInstitusiUpps;
@@ -9,6 +10,7 @@ use App\Models\StandarYangDitetapkanInstitusiUpps;
 class Status extends Component
 {
     public Upps $upps;
+    public Periode $periode;
     public StandarYangDitetapkanInstitusiUpps $standarYangDitetapkanInstitusiUpps;
     public $statuses;
     
@@ -49,7 +51,7 @@ class Status extends Component
             'document_status' => false
         ]);
         
-        return redirect()->route('dashboard.spmi.penetapan.standar-yang-ditetapkan-institusi', ['upps' => $this->upps])->with('success', 'Successfully update standar yang ditetapkan institusi');
+        return redirect()->route('dashboard.spmi.penetapan.standar-yang-ditetapkan-institusi', ['upps' => $this->upps, 'periode' => $this->periode])->with('success', 'Successfully update standar yang ditetapkan institusi');
     }
     
     public function updateNo()
@@ -76,13 +78,14 @@ class Status extends Component
             'document_status' => false
         ]);
         
-        return redirect()->route('dashboard.spmi.penetapan.standar-yang-ditetapkan-institusi', ['upps' => $this->upps])->with('success', 'Successfully update standar yang ditetapkan institusi');
+        return redirect()->route('dashboard.spmi.penetapan.standar-yang-ditetapkan-institusi', ['upps' => $this->upps, 'periode' => $this->periode])->with('success', 'Successfully update standar yang ditetapkan institusi');
     }
     
     public function render()
     {
         return view('livewire.dashboard.spmi.standar-yang-ditetapkan-institusi.status', [
             'upps' => $this->upps,
+            'periode' => $this->periode,
             'standarYangDitetapkanInstitusiUpps' => $this->standarYangDitetapkanInstitusiUpps
         ]);
     }

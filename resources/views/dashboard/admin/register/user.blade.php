@@ -1,4 +1,4 @@
-<x-layout.admin class="register__user" title="Register" subtitle="User">
+<x-layout.admin class="register__user" title="User" subtitle="Register">
     
     @livewire('dashboard.admin.register.user.read')
     

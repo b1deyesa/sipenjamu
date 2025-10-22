@@ -1,7 +1,9 @@
 <x-modal title="Add UPPS">
 
     {{-- Button --}}
-    <x-slot:label><i class="fa-solid fa-plus"></i>Tambahkan UPPS</x-slot:label>
+    <x-slot:trigger>
+        <x-button class="button__success"><i class="fa-solid fa-plus"></i>Tambahkan UPPS</x-button>
+    </x-slot:trigger>
     
     {{-- Form --}}
     <x-form wire="store">

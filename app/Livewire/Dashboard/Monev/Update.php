@@ -5,12 +5,13 @@ namespace App\Livewire\Dashboard\Monev;
 use Livewire\Component;
 use App\Models\MonevRow;
 use App\Models\MonevTable;
-use League\CommonMark\Extension\Table\TableRow;
+use App\Models\Periode;
 
 class Update extends Component
 {
+    public Periode $periode;
     public $row;
-    public $upps;
+    public $programStudi;
     public $slug;
     public $table;
     public $fields;
@@ -21,9 +22,10 @@ class Update extends Component
         $this->table = MonevTable::where('slug', $this->slug)->firstOrFail();
         $this->fields = $this->table->fields ? json_decode($this->table->fields, true) : [];
         
-        
+        $rowData = $this->table->rows->where('id', $this->row)->first();
+
         foreach ($this->fields as $field) {
-            $this->form[$field['name']] = $this->table->rows->where('id', $this->row)->first()->data[$field['name']];
+            $this->form[$field['name']] = $rowData->data[$field['name']] ?? null;
         }
     }
     
@@ -41,7 +43,12 @@ class Update extends Component
             'data' => $this->form,
         ]);
         
-        return redirect()->route('dashboard.monev.show', ['upps' => $this->upps, 'slug' => $this->slug]);
+        return redirect()->route('dashboard.monev.show', [
+            'upps' => $this->programStudi->upps,
+            'programStudi' => $this->programStudi,
+            'periode' => $this->periode,
+            'slug' => $this->slug
+        ])->with('success', 'Successfully updated data ' . $this->table->name);
     }
     
     public function render()
@@ -49,7 +56,8 @@ class Update extends Component
         return view('livewire.dashboard.monev.update', [
             'row' => $this->row,
             'slug' => $this->slug,
-            'upps' => $this->upps
+            'programStudi' => $this->programStudi,
+            'periode' => $this->periode
         ]);
     }
 }

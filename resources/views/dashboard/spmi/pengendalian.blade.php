@@ -2,13 +2,13 @@
     
     {{-- Create Pengaturan --}}
     <span style="align-self: flex-end">
-        @livewire('dashboard.spmi.pengendalian.create', compact('upps'))
+        @livewire('dashboard.spmi.pengendalian.create', compact('upps', 'periode'))
     </span>
     
     {{-- Pengendalian Table --}}
     <x-table>
         <x-slot:head>
-            <th>No</th>
+            <th width="1%">No</th>
             <th>Nama Pengaturan</th>
             <th width="1%">Tautan RTM</th>
             <th width="1%">Tautan Bukti RTM</th>
@@ -31,8 +31,8 @@
                     <td align="center">{!! accept($pengendalianUpps->document_status ? 'Document Verified' : 'Dokument Proccess') !!}</td>
                     <td>
                         <div class="table__action">
-                            @livewire('dashboard.spmi.pengendalian.update', compact('upps', 'pengendalianUpps'), key('update-'. $pengendalianUpps->id))
-                            @livewire('dashboard.spmi.pengendalian.delete', compact('upps', 'pengendalianUpps'), key('delete-'. $pengendalianUpps->id))
+                            @livewire('dashboard.spmi.pengendalian.update', compact('upps', 'periode', 'pengendalianUpps'), key('update-'. $pengendalianUpps->id))
+                            @livewire('dashboard.spmi.pengendalian.delete', compact('upps', 'periode', 'pengendalianUpps'), key('delete-'. $pengendalianUpps->id))
                         </div>
                     </td>
                 </tr>

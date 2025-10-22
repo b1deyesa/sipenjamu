@@ -1,7 +1,9 @@
 <x-modal title="Add Bentuk Pengendalian">
 
     {{-- Button --}}
-    <x-slot:label><i class="fa-solid fa-plus"></i>Tambahkan Bentuk Pengendalian</x-slot:label>
+    <x-slot:trigger>
+        <x-button class="button__success"><i class="fa-solid fa-plus"></i>Tambahkan Pengendalian</x-button>
+    </x-slot:trigger>
     
     {{-- Form --}}
     <x-form wire="store">

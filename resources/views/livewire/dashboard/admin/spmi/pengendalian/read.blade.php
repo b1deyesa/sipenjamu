@@ -1,11 +1,13 @@
 <x-crud-table 
     :items="$pengendalians" 
-    :searchField="[
-        'Setting Name' => 'name'
+    :search-field="[
+        [
+            'label' => 'Setting Name', 
+            'name' => 'name'
+        ],
     ]"
-    createComponent="dashboard.admin.spmi.pengendalian.create" 
-    updateComponentPrefix="dashboard.admin.spmi.pengendalian.update" 
-    deleteComponentPrefix="dashboard.admin.spmi.pengendalian.delete"
-    reviewComponentPrefix="dashboard.admin.spmi.pengendalian.review"
->
-</x-crud-table>
+    create-component="dashboard.admin.spmi.pengendalian.create" 
+    update-component-prefix="dashboard.admin.spmi.pengendalian.update" 
+    delete-component-prefix="dashboard.admin.spmi.pengendalian.delete"
+    review-component-prefix="dashboard.admin.spmi.pengendalian.review"
+/>

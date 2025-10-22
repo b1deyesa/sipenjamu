@@ -1,8 +1,20 @@
 <span x-data="searchableTable()" x-init="updateVisibleRows(); $watch('search', () => { setTimeout(() => updateVisibleRows(), 10); });">
     {{-- Features --}}
     <div class="content__feature">
-        @livewire('dashboard.monev.create', ['slug' => $slug, 'upps' => $upps])
-
+        <div class="feature__left">
+            @livewire('dashboard.monev.create', ['slug' => $slug, 'upps' => $programStudi->upps, 'programStudi' => $programStudi, 'periode' => $periode])
+            <x-modal>
+                <x-slot:trigger><x-button class="button__outline"><i class="fa fa-upload"></i> Import Data</x-button></x-slot:trigger>
+                <p>Data yang di-import harus sesuai dengan template ini. <a href="{{ route('dashboard.monev.export', ['upps' => $programStudi->upps, 'programStudi' => $programStudi, 'periode' => $periode, 'slug' => $slug]) }}">download</a></p>
+                <x-form action="{{ route('dashboard.monev.import', ['upps' => $programStudi->upps, 'programStudi' => $programStudi, 'periode' => $periode, 'slug' => $slug]) }}" method="POST" enctype="multipart/form-data">
+                    <x-input type="file" name="file" />
+                    <x-slot:bottom>
+                        <x-button class="button__outline" type="button" x-on:click="open = false">Cancel</x-button>
+                        <x-button type="submit">Import</x-button>
+                    </x-slot:bottom>
+                </x-form>
+            </x-modal>
+        </div>
         <x-input type="search" placeholder="Search here.." x-model="search" />
     </div>
     
@@ -31,8 +43,8 @@
 
                     <td width="1%">
                         <div class="table__action">
-                                @livewire('dashboard.monev.update', ['row' => $row->id,'slug' => $slug,'upps' => $upps], key('dashboard.monev.update' . $row->id))
-                                @livewire('dashboard.monev.delete', ['row' => $row->id,'slug' => $slug,'upps' => $upps], key('dashboard.monev.delete' . $row->id))
+                            @livewire('dashboard.monev.update', ['row' => $row->id, 'slug' => $slug, 'upps' => $programStudi->upps, 'programStudi' => $programStudi, 'periode' => $periode], key('dashboard.monev.update' . $row->id))
+                            @livewire('dashboard.monev.delete', ['row' => $row->id, 'slug' => $slug, 'upps' => $programStudi->upps, 'programStudi' => $programStudi, 'periode' => $periode], key('dashboard.monev.delete' . $row->id))
                         </div>
                     </td>
                 </tr>

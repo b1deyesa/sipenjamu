@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Dashboard\Spmi\StandarLain;
 
+use App\Models\Periode;
 use App\Models\Upps;
 use Livewire\Component;
 use App\Models\StandarLain;
@@ -9,6 +10,7 @@ use App\Models\StandarLain;
 class Update extends Component
 {
     public Upps $upps;
+    public Periode $periode;
     public StandarLain $standar_lain;
     public $name;
     public $link;
@@ -38,13 +40,14 @@ class Update extends Component
             'link' => $this->link
         ]);
         
-        return redirect()->route('dashboard.spmi.penetapan.standar-lain', ['upps' => $this->upps->id])->with('success', 'Successfully updated standar lain');
+        return redirect()->route('dashboard.spmi.penetapan.standar-lain', ['upps' => $this->upps->id, 'periode' => $this->periode->id])->with('success', 'Successfully updated standar lain');
     }
     
     public function render()
     {
         return view('livewire.dashboard.spmi.standar-lain.update', [
             'upps' => $this->upps,
+            'periode' => $this->periode,
             'standar_lain' => $this->standar_lain
         ]);
     }

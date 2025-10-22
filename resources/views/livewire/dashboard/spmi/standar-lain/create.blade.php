@@ -1,11 +1,13 @@
 <x-modal title="Add Standar Lain">
 
     {{-- Button --}}
-    <x-slot:label><i class="fa-solid fa-plus"></i>Tambahkan Standar Lain</x-slot:label>
+    <x-slot:trigger>
+        <x-button class="button__success"><i class="fa-solid fa-plus"></i>Tambahkan Standar Lain</x-button>
+    </x-slot:trigger>
     
     {{-- Form --}}
     <x-form wire="store">
-        <x-input type="text" label="Nama Bidang Pengaturan Standar" wire="name" />
+        <x-input type="select-search" label="Setting Name" wire="name" :options="$standar_lains" />
         <x-input type="text" label="Description" wire="description" />
         <hr class="modal__separator">
         <p class="disclaimer">Note: Please ensure that the link provided is publicly accessible/readable!<br>(General Access: Anyone with the link)</p>

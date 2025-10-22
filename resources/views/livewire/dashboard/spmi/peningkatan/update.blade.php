@@ -3,7 +3,9 @@
     
         {{-- Yes --}}
         <x-modal title="Peningkatan Document">
-            <x-slot:label><i class="fa-solid fa-pencil"></i></x-slot:label>
+            <x-slot:trigger>
+                <x-button class="button__info"><i class="fa-solid fa-pencil"></i></x-button>
+            </x-slot:trigger>
             <x-form wire="updateYes">
                 <x-input type="text" label="Description" wire="description" />
                 <x-input type="date" label="Tanggal Penetapan" wire="penetapan_date" />
@@ -19,7 +21,9 @@
     @else
         {{-- No --}}
         <x-modal title="Peningkatan Document">
-            <x-slot:label><i class="fa-solid fa-pencil"></i></x-slot:label>
+            <x-slot:trigger>
+                <x-button class="button__info"><i class="fa-solid fa-pencil"></i></x-button>
+            </x-slot:trigger>
             <x-form wire="updateNo">
                 <x-input type="radio" wire="setting_status" :options="$statuses" />
                 @if ($this->setting_status == 'Lainnya')

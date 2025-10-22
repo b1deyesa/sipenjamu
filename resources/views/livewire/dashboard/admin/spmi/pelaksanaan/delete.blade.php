@@ -1,7 +1,10 @@
 <x-modal title="Delete Pelaksanaan">
     
     {{-- Button --}}
-    <x-slot:label><i class="fa-solid fa-trash"></i></x-slot:label>
+    <x-slot:trigger>
+        <x-button class="button__danger"><i class="fa-solid fa-trash"></i></x-button>
+    </x-slot:trigger>
+    
     
     {{-- Disclaimer --}}
     <p class="disclaimer">Deleting this data is permanent and cannot be undone. Password confirmation is required.</p>

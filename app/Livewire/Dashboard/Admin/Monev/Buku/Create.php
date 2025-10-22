@@ -27,7 +27,7 @@ class Create extends Component
         $this->datas = [
             0 => [
                 'name' => null,
-                'type' => null
+                'type' => 'text'
             ]
         ];
     }
@@ -36,7 +36,7 @@ class Create extends Component
     {
         $this->datas[] = [
             'name' => null,
-            'type' => null
+            'type' => 'text'
         ];
     }
     
@@ -57,6 +57,7 @@ class Create extends Component
         
         $table = MonevTable::create([
             'name' => $this->name,
+            'category' => 'buku',
             'slug' => Str::slug($this->name)
         ]);
         
